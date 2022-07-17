@@ -20,6 +20,8 @@ public class RobotMap {
             public static final int FL_LEFT_FALCON = 6; // real 6
             public static final int FR_RIGHT_FALCON = 7;
             public static final int FR_LEFT_FALCON = 8;
+
+            public static final int INTAKE = 12;
         }
     }
 
@@ -56,5 +58,7 @@ public class RobotMap {
         public static final int ENCODER_FL = 3;
         public static final int ENCODER_BR = 5;
         public static final int ENCODER_BL = 2;
+
+        public static final int INTAKE_BEAM_BREAK = 1; //old code was 5
     }
 }

@@ -5,8 +5,10 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import org.frc5687.swerve.commands.Drive;
+import org.frc5687.swerve.commands.IdleIntake;
 import org.frc5687.swerve.commands.OutliersCommand;
 import org.frc5687.swerve.subsystems.DriveTrain;
+import org.frc5687.swerve.subsystems.Intake;
 import org.frc5687.swerve.subsystems.OutliersSubsystem;
 import org.frc5687.swerve.util.OutliersContainer;
 
@@ -17,6 +19,7 @@ public class RobotContainer extends OutliersContainer {
 
     private Robot _robot;
     private DriveTrain _driveTrain;
+    private Intake _intake;
 
     public RobotContainer(Robot robot, IdentityMode identityMode) {
         super(identityMode);
@@ -28,8 +31,10 @@ public class RobotContainer extends OutliersContainer {
         _imu = new AHRS(SPI.Port.kMXP, (byte) 200);
 
         _driveTrain = new DriveTrain(this, _oi, _imu);
+        _intake = new Intake(this);
 
         setDefaultCommand(_driveTrain, new Drive(_driveTrain, _oi));
+        setDefaultCommand(_intake, new IdleIntake(_intake));
         _robot.addPeriodic(this::controllerPeriodic, 0.005, 0.005);
         _imu.reset();
     }
@@ -58,6 +63,7 @@ public class RobotContainer extends OutliersContainer {
     @Override
     public void updateDashboard() {
         _driveTrain.updateDashboard();
+        _intake.updateDashboard();
     }
 
     public void controllerPeriodic() {

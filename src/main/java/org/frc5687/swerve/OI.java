@@ -4,10 +4,13 @@ package org.frc5687.swerve;
 import static org.frc5687.swerve.Constants.DriveTrain.*;
 import static org.frc5687.swerve.util.Helpers.*;
 
+import org.frc5687.swerve.commands.AutoIntake;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import org.frc5687.swerve.subsystems.DriveTrain;
+import org.frc5687.swerve.subsystems.Intake;
 import org.frc5687.swerve.util.AxisButton;
 import org.frc5687.swerve.util.Gamepad;
 import org.frc5687.swerve.util.OutliersProxy;
@@ -23,6 +26,7 @@ public class OI extends OutliersProxy {
     private JoystickButton _thumbButton;
     private JoystickButton _shootButton;
     private JoystickButton _resetYawButton;
+    private JoystickButton _intake;
 
     private Button _driverAButton;
     private Button _driverBButton;
@@ -46,6 +50,7 @@ public class OI extends OutliersProxy {
         _thumbButton = new JoystickButton(_rightJoystick, 2);
         _shootButton = new JoystickButton(_leftJoystick, 1);
         _resetYawButton = new JoystickButton(_rightJoystick, 4);
+        _intake = new JoystickButton(_leftJoystick, 1); //pretty sure this is the trigger
 
         _driverAButton = new JoystickButton(_driverGamepad, Gamepad.Buttons.A.getNumber());
         _driverBButton = new JoystickButton(_driverGamepad, Gamepad.Buttons.B.getNumber());
@@ -55,7 +60,9 @@ public class OI extends OutliersProxy {
                 new AxisButton(_driverGamepad, Gamepad.Axes.RIGHT_TRIGGER.getNumber(), 0.2);
     }
 
-    public void initializeButtons(DriveTrain driveTrain) {}
+    public void initializeButtons(DriveTrain driveTrain, Intake intake) {
+        _intake.whenHeld(new AutoIntake(intake));
+    }
 
     public double getDriveY() {
         //        yIn = getSpeedFromAxis(_leftJoystick, _leftJoystick.getYChannel());
