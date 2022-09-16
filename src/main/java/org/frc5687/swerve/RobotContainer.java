@@ -4,10 +4,13 @@ package org.frc5687.swerve;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import org.frc5687.swerve.commands.Drive;
+import org.frc5687.swerve.commands.IdleShoot;
 import org.frc5687.swerve.commands.OutliersCommand;
 import org.frc5687.swerve.subsystems.DriveTrain;
 import org.frc5687.swerve.subsystems.OutliersSubsystem;
+import org.frc5687.swerve.subsystems.Shooter;
 import org.frc5687.swerve.util.OutliersContainer;
 
 public class RobotContainer extends OutliersContainer {
@@ -17,6 +20,7 @@ public class RobotContainer extends OutliersContainer {
 
     private Robot _robot;
     private DriveTrain _driveTrain;
+    private Shooter _shooter;
 
     public RobotContainer(Robot robot, IdentityMode identityMode) {
         super(identityMode);
@@ -30,6 +34,7 @@ public class RobotContainer extends OutliersContainer {
         _driveTrain = new DriveTrain(this, _oi, _imu);
 
         setDefaultCommand(_driveTrain, new Drive(_driveTrain, _oi));
+        setDefaultCommand(_shooter, new IdleShoot(_shooter));
         _robot.addPeriodic(this::controllerPeriodic, 0.005, 0.005);
         _imu.reset();
     }
