@@ -6,7 +6,6 @@ import static org.frc5687.swerve.Constants.DriveTrain.*;
 import static org.frc5687.swerve.RobotMap.CAN.TALONFX.*;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
-import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
