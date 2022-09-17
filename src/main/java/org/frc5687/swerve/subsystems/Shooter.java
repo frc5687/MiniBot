@@ -20,18 +20,34 @@ public class Shooter extends OutliersSubsystem{
         _southWheel.setInverted(Constants.Shooter.SOUTH_INVERTED);
     }
 
-    //set North wheel speed
+    /**
+     * Sets the speed of the north shooter wheel
+     * @param speed double (-1.0, 1.0)
+     */
     public void setNorthShooterSpeed(double speed) {
         _northWheel.set(TalonFXControlMode.PercentOutput, speed);
     }
-    //set south wheel speed
+    
+    /**
+     * Sets the speed of the south shooter wheel
+     * @param speed double (-1.0, 1.0)
+     */
     public void setSouthShooterSpeed(double speed) {
         _southWheel.set(TalonFXControlMode.PercentOutput, speed);
     }
+
+    /**
+     * Returns the velocity of the north shooter wheel
+     * @return double 
+     */
     public double getNorthShooterSpeed(){
         return _northWheel.getSelectedSensorVelocity();
     }
 
+    /**
+     * Returns the velocity of the souther wheel
+     * @return double
+     */
     public double getSouthShooterSpeed(){
         return _southWheel.getSelectedSensorVelocity();
     }

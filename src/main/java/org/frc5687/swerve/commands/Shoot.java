@@ -18,8 +18,8 @@ public class Shoot extends OutliersCommand{
     public void execute() {
         super.execute();
         // put ball-feeding code here
-        _shooter.setNorthShooterSpeed(Constants.Shooter.NORTH_PERCENT_SPEED);
-        _shooter.setSouthShooterSpeed(Constants.Shooter.SOUTH_PERCENT_SPEED);
+        _shooter.setNorthShooterSpeed(Constants.Shooter.NORTH_SPEED);
+        _shooter.setSouthShooterSpeed(Constants.Shooter.SOUTH_SPEED);
     }
 
     public boolean isFinished() {

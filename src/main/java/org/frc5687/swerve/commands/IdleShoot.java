@@ -15,8 +15,8 @@ public class IdleShoot extends OutliersCommand{
     @Override
     public void initialize() {
         super.initialize();
-        _shooter.setNorthShooterSpeed(Constants.Shooter.NORTH_IDLE_PERCENT_SPEED);
-        _shooter.setSouthShooterSpeed(Constants.Shooter.SOUTH_IDLE_PERCENT_SPEED);
+        _shooter.setNorthShooterSpeed(Constants.Shooter.NORTH_IDLE_SPEED);
+        _shooter.setSouthShooterSpeed(Constants.Shooter.SOUTH_IDLE_SPEED);
     }
 
     @Override

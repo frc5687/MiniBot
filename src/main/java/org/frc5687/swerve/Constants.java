@@ -1,8 +1,6 @@
 /* Team 5687 (C)2020-2022 */
 package org.frc5687.swerve;
 
-import java.security.PublicKey;
-
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 
@@ -93,10 +91,10 @@ public class Constants {
     }
 
     public static class Shooter {
-        public static final double NORTH_PERCENT_SPEED = 0.5;
-        public static final double SOUTH_PERCENT_SPEED = 0.5;
-        public static final double NORTH_IDLE_PERCENT_SPEED = 0.2;
-        public static final double SOUTH_IDLE_PERCENT_SPEED = 0.2;
+        public static final double NORTH_SPEED = 0.5;
+        public static final double SOUTH_SPEED = 0.5;
+        public static final double NORTH_IDLE_SPEED = 0.2;
+        public static final double SOUTH_IDLE_SPEED = 0.2;
         public static final boolean NORTH_INVERTED = true;
         public static final boolean SOUTH_INVERTED = false;
     }
