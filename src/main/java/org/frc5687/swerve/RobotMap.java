@@ -23,6 +23,10 @@ public class RobotMap {
             public static final int NORTH_WHEEL = 9;
             public static final int SOUTH_WHEEL = 10;
         }
+
+        public static class PIGEON {
+            public static final int PIGEON = 0;
+        }
     }
 
     /**
