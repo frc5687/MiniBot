@@ -12,8 +12,8 @@ public class Constants {
 
     public static class DriveTrain {
 
-        public static final double WIDTH = 0.6223;
-        public static final double LENGTH = 0.6223;
+        public static final double WIDTH = 0.4191; //meters between the wheels, taken from CAD
+        public static final double LENGTH = 0.4191; //meters between the wheels, taken from CAD
         public static final Translation2d FRONT_LEFT_POSITION =
                 new Translation2d(WIDTH / 2.0, LENGTH / 2.0);
         public static final double FRONT_LEFT_ENCODER_OFFSET = -0.071; // radians
