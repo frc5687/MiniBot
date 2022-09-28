@@ -55,5 +55,8 @@ public class OI extends OutliersProxy {
     }
 
     @Override
-    public void updateDashboard() {}
+    public void updateDashboard() {
+        metric("Raw x", xIn);
+        metric("Raw y", yIn);
+    }
 }
