@@ -29,7 +29,7 @@ public class Constants {
 
         public static final double DEADBAND = 0.1;
 
-        public static final double MAX_MPS = 1.5; // Max speed of robot (m/s) .
+        public static final double MAX_MPS = 0.5; // Max speed of robot (m/s) .
 
         public static final double MAX_ANG_VEL =
                 Math.PI * 2.0; // Max rotation rate of robot (rads/s)
