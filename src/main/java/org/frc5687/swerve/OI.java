@@ -42,7 +42,7 @@ public class OI extends OutliersProxy {
     }
 
     public double getRotationX() {
-        double speed = getSpeedFromAxis(_driverGamepad, Gamepad.Axes.RIGHT_Y.getNumber());
+        double speed = getSpeedFromAxis(_driverGamepad, Gamepad.Axes.RIGHT_X.getNumber());
         speed = applyDeadband(speed, 0.2);
         return speed;
     }
