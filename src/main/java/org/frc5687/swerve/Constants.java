@@ -14,18 +14,18 @@ public class Constants {
 
         public static final double WIDTH = 0.4191; //meters between the wheels, taken from CAD
         public static final double LENGTH = 0.4191; //meters between the wheels, taken from CAD
-        public static final Translation2d FRONT_LEFT_POSITION =
+        public static final Translation2d NW_POSITION =
                 new Translation2d(WIDTH / 2.0, LENGTH / 2.0);
-        public static final double FRONT_LEFT_ENCODER_OFFSET = -0.071; // radians
-        public static final Translation2d FRONT_RIGHT_POSITION =
+        public static final double NW_ENCODER_OFFSET = -0.122; // radians old -0.071
+        public static final Translation2d NE_POSITION =
                 new Translation2d(WIDTH / 2.0, -LENGTH / 2.0);
-        public static final double FRONT_RIGHT_ENCODER_OFFSET = -1.01; // radians
-        public static final Translation2d BACK_LEFT_POSITION =
+        public static final double NE_ENCODER_OFFSET = -0.122; // radians old -1.01
+        public static final Translation2d SW_POSITION =
                 new Translation2d(-WIDTH / 2.0, LENGTH / 2.0);
-        public static final double BACK_RIGHT_ENCODER_OFFSET = -0.122; // radians
-        public static final Translation2d BACK_RIGHT_POSITION =
+        public static final double SE_ENCODER_OFFSET = -0.122; // radians old -0.122
+        public static final Translation2d SE_POSITION =
                 new Translation2d(-WIDTH / 2.0, -LENGTH / 2.0);
-        public static final double BACK_LEFT_ENCODER_OFFSET = 0.585 + Math.PI; // radians
+        public static final double SW_ENCODER_OFFSET = -0.122; // radians old 0.585 + Math.PI
 
         public static final double DEADBAND = 0.1;
 

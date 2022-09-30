@@ -48,32 +48,32 @@ public class DriveTrain extends OutliersSubsystem {
 
             _frontRight =
                     new DiffSwerveModule(
-                            FRONT_RIGHT_POSITION,
+                            NE_POSITION,
                             NE_INNER_FALCON,
                             NE_OUTER_FALCON,
                             RobotMap.DIO.ENCODER_NE,
-                            FRONT_RIGHT_ENCODER_OFFSET);
+                            NE_ENCODER_OFFSET);
             _frontLeft =
                     new DiffSwerveModule(
-                            FRONT_LEFT_POSITION,
+                            NW_POSITION,
                             NW_OUTER_FALCON,
                             NW_INNER_FALCON,
                             RobotMap.DIO.ENCODER_NW,
-                            FRONT_LEFT_ENCODER_OFFSET);
+                            NW_ENCODER_OFFSET);
             _backRight =
                     new DiffSwerveModule(
-                            BACK_RIGHT_POSITION,
+                            SE_POSITION,
                             SE_INNER_FALCON,
                             SE_OUTER_FALCON,
                             RobotMap.DIO.ENCODER_SE,
-                            BACK_RIGHT_ENCODER_OFFSET);
+                            SE_ENCODER_OFFSET);
             _backLeft =
                     new DiffSwerveModule(
-                            BACK_LEFT_POSITION,
+                            SW_POSITION,
                             SW_OUTER_FALCON,
                             SW_INNER_FALCON,
                             RobotMap.DIO.ENCODER_SW,
-                            BACK_LEFT_ENCODER_OFFSET);
+                            SW_ENCODER_OFFSET);
 
             _kinematics =
                     new SwerveDriveKinematics(
