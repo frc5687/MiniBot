@@ -12,15 +12,14 @@ public class RobotMap {
     public static class CAN {
 
         public static class TALONFX { //updated for minibot, compass based
-            public static final int NW_OUTER_FALCON = 1;
-
-            public static final int NW_INNER_FALCON = 2;
-            public static final int NE_INNER_FALCON = 3;
-            public static final int NE_OUTER_FALCON = 4;
-            public static final int SE_OUTER_FALCON = 5;
-            public static final int SE_INNER_FALCON = 6;
-            public static final int SW_INNER_FALCON = 7;
-            public static final int SW_OUTER_FALCON = 8;
+            public static final int NORTH_WEST_OUTER = 1;
+            public static final int NORTH_WEST_INNER = 2;
+            public static final int NORTH_EAST_INNER = 3;
+            public static final int NORTH_EAST_OUTER = 4;
+            public static final int SOUTH_EAST_OUTER = 5;
+            public static final int SOUTH_EAST_INNER = 6;
+            public static final int SOUTH_WEST_INNER = 7;
+            public static final int SOUTH_WEST_OUTER = 8;
 
             public static final int NORTH_SHOOTER = 11;
             public static final int SOUTH_SHOOTER = 10;

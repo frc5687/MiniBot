@@ -1,23 +1,20 @@
 /* Team 5687 (C)2021 */
+/* Team 5687 (C)2021-2022 */
 package org.frc5687.swerve;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.PigeonIMU_StatusFrame;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import com.ctre.phoenix.sensors.Pigeon2;
 import org.frc5687.swerve.commands.Drive;
 import org.frc5687.swerve.commands.OutliersCommand;
 import org.frc5687.swerve.subsystems.DriveTrain;
 import org.frc5687.swerve.subsystems.OutliersSubsystem;
-import org.frc5687.swerve.subsystems.Shooter;
 import org.frc5687.swerve.util.OutliersContainer;
 
 public class RobotContainer extends OutliersContainer {
 
     private OI _oi;
-    private PigeonIMU _pigeon;
-
-    private Shooter _shooter;
-
+    private Pigeon2 _imu;
     private Robot _robot;
     private DriveTrain _driveTrain;
 
@@ -28,16 +25,15 @@ public class RobotContainer extends OutliersContainer {
 
     public void init() {
         _oi = new OI();
-        _pigeon = new PigeonIMU(RobotMap.CAN.PIGEON.PIGEON);
-        _shooter = new Shooter(this);
 
-        _driveTrain = new DriveTrain(this, _oi, _pigeon);
-        
+        // configure pigeon
+        _imu = new Pigeon2(RobotMap.CAN.PIGEON.PIGEON);
+        _imu.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_6_SensorFusion, 10, 10);
+//        _coprocessor = new Coprocessor(10);
 
-        _oi.initializeButtons(_driveTrain, _shooter);
-
+        _driveTrain = new DriveTrain(this, _oi, _imu);
         setDefaultCommand(_driveTrain, new Drive(_driveTrain, _oi));
-        _robot.addPeriodic(this::controllerPeriodic, 0.005, 0.005);
+        startPeriodic();
     }
 
     public void periodic() {}
@@ -60,15 +56,5 @@ public class RobotContainer extends OutliersContainer {
         CommandScheduler s = CommandScheduler.getInstance();
         s.setDefaultCommand(subSystem, command);
     }
-
-    @Override
-    public void updateDashboard() {
-        _driveTrain.updateDashboard();
-    }
-
-    public void controllerPeriodic() {
-        if (_driveTrain != null) {
-            _driveTrain.controllerPeriodic();
-        }
-    }
 }
+

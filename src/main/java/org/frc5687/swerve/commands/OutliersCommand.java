@@ -1,9 +1,11 @@
 /* (C)2020-2021 */
 package org.frc5687.swerve.commands;
 
-import org.frc5687.swerve.util.ILoggingSource;
-import org.frc5687.swerve.util.MetricTracker;
-import org.frc5687.swerve.util.RioLogger;
+
+
+import org.frc5687.lib.logging.ILoggingSource;
+import org.frc5687.lib.logging.MetricTracker;
+import org.frc5687.lib.logging.RioLogger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
