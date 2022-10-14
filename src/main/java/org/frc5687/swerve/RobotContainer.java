@@ -8,12 +8,15 @@ import org.frc5687.swerve.commands.Drive;
 import org.frc5687.swerve.commands.OutliersCommand;
 import org.frc5687.swerve.subsystems.DriveTrain;
 import org.frc5687.swerve.subsystems.OutliersSubsystem;
+import org.frc5687.swerve.subsystems.Shooter;
 import org.frc5687.swerve.util.OutliersContainer;
 
 public class RobotContainer extends OutliersContainer {
 
     private OI _oi;
     private PigeonIMU _pigeon;
+
+    private Shooter _shooter;
 
     private Robot _robot;
     private DriveTrain _driveTrain;
@@ -26,8 +29,12 @@ public class RobotContainer extends OutliersContainer {
     public void init() {
         _oi = new OI();
         _pigeon = new PigeonIMU(RobotMap.CAN.PIGEON.PIGEON);
+        _shooter = new Shooter(this);
 
         _driveTrain = new DriveTrain(this, _oi, _pigeon);
+        
+
+        _oi.initializeButtons(_driveTrain, _shooter);
 
         setDefaultCommand(_driveTrain, new Drive(_driveTrain, _oi));
         _robot.addPeriodic(this::controllerPeriodic, 0.005, 0.005);
