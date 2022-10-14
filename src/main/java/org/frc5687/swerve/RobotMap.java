@@ -13,7 +13,6 @@ public class RobotMap {
 
         public static class TALONFX { //updated for minibot, compass based
             public static final int NW_OUTER_FALCON = 1;
-
             public static final int NW_INNER_FALCON = 2;
             public static final int NE_INNER_FALCON = 3;
             public static final int NE_OUTER_FALCON = 4;
@@ -23,6 +22,7 @@ public class RobotMap {
             public static final int SW_OUTER_FALCON = 8;
             public static final int NORTH_WHEEL = 9;
             public static final int SOUTH_WHEEL = 10;
+            public static final int INTAKE = 11;
         }
 
         public static class PIGEON {
@@ -63,5 +63,6 @@ public class RobotMap {
         public static final int ENCODER_NE = 1;
         public static final int ENCODER_SE = 2;
         public static final int ENCODER_SW = 3;
+        public static final int INTAKE_BEAM_BREAK = 4;
     }
 }
