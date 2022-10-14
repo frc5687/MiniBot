@@ -5,6 +5,7 @@ import static org.frc5687.swerve.Constants.DifferentialSwerveModule.*;
 import static org.frc5687.swerve.Constants.DriveTrain.*;
 import static org.frc5687.swerve.RobotMap.CAN.TALONFX.*;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
@@ -34,13 +35,13 @@ public class DriveTrain extends OutliersSubsystem {
 
     private double _PIDAngle;
 
-    private PigeonIMU _imu;
+    private Pigeon2 _imu;
     private OI _oi;
 
     private HolonomicDriveController _controller;
     private ProfiledPIDController _angleController;
 
-    public DriveTrain(OutliersContainer container, OI oi, PigeonIMU imu) {
+    public DriveTrain(OutliersContainer container, OI oi, Pigeon2 imu) {
         super(container);
         try {
             _oi = oi;

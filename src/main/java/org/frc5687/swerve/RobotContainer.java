@@ -1,7 +1,9 @@
 /* Team 5687 (C)2021 */
 package org.frc5687.swerve;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.PigeonIMU_StatusFrame;
+
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import org.frc5687.swerve.commands.Drive;
@@ -13,7 +15,7 @@ import org.frc5687.swerve.util.OutliersContainer;
 public class RobotContainer extends OutliersContainer {
 
     private OI _oi;
-    private PigeonIMU _pigeon;
+    private Pigeon2 _pigeon;
 
     private Robot _robot;
     private DriveTrain _driveTrain;
@@ -25,8 +27,11 @@ public class RobotContainer extends OutliersContainer {
 
     public void init() {
         _oi = new OI();
-        _pigeon = new PigeonIMU(RobotMap.CAN.PIGEON.PIGEON);
+        _pigeon = new Pigeon2(RobotMap.CAN.PIGEON.PIGEON, "Tomcat");
 
+        _pigeon.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_6_SensorFusion, 10, 10);
+
+        
         _driveTrain = new DriveTrain(this, _oi, _pigeon);
 
         setDefaultCommand(_driveTrain, new Drive(_driveTrain, _oi));
