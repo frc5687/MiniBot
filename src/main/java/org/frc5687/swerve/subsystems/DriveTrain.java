@@ -5,7 +5,7 @@ import static org.frc5687.swerve.Constants.DifferentialSwerveModule.*;
 import static org.frc5687.swerve.Constants.DriveTrain.*;
 import static org.frc5687.swerve.RobotMap.CAN.TALONFX.*;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -34,13 +34,13 @@ public class DriveTrain extends OutliersSubsystem {
 
     private double _PIDAngle;
 
-    private AHRS _imu;
+    private PigeonIMU _imu;
     private OI _oi;
 
     private HolonomicDriveController _controller;
     private ProfiledPIDController _angleController;
 
-    public DriveTrain(OutliersContainer container, OI oi, AHRS imu) {
+    public DriveTrain(OutliersContainer container, OI oi, PigeonIMU imu) {
         super(container);
         try {
             _oi = oi;
@@ -48,32 +48,32 @@ public class DriveTrain extends OutliersSubsystem {
 
             _frontRight =
                     new DiffSwerveModule(
-                            FRONT_RIGHT_POSITION,
-                            FR_LEFT_FALCON,
-                            FR_RIGHT_FALCON,
-                            RobotMap.DIO.ENCODER_FR,
-                            FRONT_RIGHT_ENCODER_OFFSET);
+                            NE_POSITION,
+                            NE_INNER_FALCON,
+                            NE_OUTER_FALCON,
+                            RobotMap.DIO.ENCODER_NE,
+                            NE_ENCODER_OFFSET);
             _frontLeft =
                     new DiffSwerveModule(
-                            FRONT_LEFT_POSITION,
-                            FL_LEFT_FALCON,
-                            FL_RIGHT_FALCON,
-                            RobotMap.DIO.ENCODER_FL,
-                            FRONT_LEFT_ENCODER_OFFSET);
+                            NW_POSITION,
+                            NW_OUTER_FALCON,
+                            NW_INNER_FALCON,
+                            RobotMap.DIO.ENCODER_NW,
+                            NW_ENCODER_OFFSET);
             _backRight =
                     new DiffSwerveModule(
-                            BACK_RIGHT_POSITION,
-                            BR_LEFT_FALCON,
-                            BR_RIGHT_FALCON,
-                            RobotMap.DIO.ENCODER_BR,
-                            BACK_RIGHT_ENCODER_OFFSET);
+                            SE_POSITION,
+                            SE_INNER_FALCON,
+                            SE_OUTER_FALCON,
+                            RobotMap.DIO.ENCODER_SE,
+                            SE_ENCODER_OFFSET);
             _backLeft =
                     new DiffSwerveModule(
-                            BACK_LEFT_POSITION,
-                            BL_RIGHT_FALCON,
-                            BL_LEFT_FALCON,
-                            RobotMap.DIO.ENCODER_BL,
-                            BACK_LEFT_ENCODER_OFFSET);
+                            SW_POSITION,
+                            SW_OUTER_FALCON,
+                            SW_INNER_FALCON,
+                            RobotMap.DIO.ENCODER_SW,
+                            SW_ENCODER_OFFSET);
 
             _kinematics =
                     new SwerveDriveKinematics(
@@ -140,6 +140,15 @@ public class DriveTrain extends OutliersSubsystem {
         metric("BR/Predicted Wheel Vel", _backRight.getPredictedWheelVelocity());
 
         metric("Odometry Pose", getOdometryPose().toString());
+
+
+
+        metric("Pigeon/Up Time", _imu.getUpTime());
+        metric("Pigeon/Yaw", _imu.getYaw());
+        metric("Pigeon/Roll", _imu.getRoll());
+        metric("Pigeon/Pitch", _imu.getPitch());
+        metric("Pigeon/ABS Compass head", _imu.getAbsoluteCompassHeading());
+        metric("Pigeon/Get Temp", _imu.getTemp());
     }
 
     public void setFrontRightModuleState(SwerveModuleState state) {
@@ -167,8 +176,11 @@ public class DriveTrain extends OutliersSubsystem {
         return Rotation2d.fromDegrees(-getYaw());
     }
 
+    /**
+     * Deprecated as the pigeon has no sure function
+     */
     public void resetYaw() {
-        _imu.reset();
+        
     }
 
     /**
