@@ -91,7 +91,9 @@ public class Constants {
     }
 
     public static class Shooter {
-        public static final double SHOOTER_SPEED = 0.5;
-        public static final boolean SHOOTER_INVERTED = false;
+        public static final double SHOOTER_SHOOT_SPEED = 0.5;
+        public static final double SHOOTER_IDLE_SPEED = 0.2;
+        public static final boolean NORTH_MOTOR_INVERTED = false;
+        public static final boolean SOUTH_MOTOR_INVERTED = true;
     }
 }

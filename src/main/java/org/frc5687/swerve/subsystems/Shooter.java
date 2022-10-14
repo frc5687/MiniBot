@@ -10,24 +10,36 @@ import org.frc5687.swerve.util.OutliersContainer;
 
 public class Shooter extends OutliersSubsystem{
 
-    private TalonFX _right;
-    private TalonFX _left;
+    private TalonFX _north;
+    private TalonFX _south;
     private boolean _isShooting = false;
 
     public Shooter(OutliersContainer container) {
         super(container);
-        _right = new TalonFX(RobotMap.CAN.TALONFX.FRONT_SHOOTER, "Tomcat");
-        _left = new TalonFX(RobotMap.CAN.TALONFX.BACK_SHOOTER, "Tomcat");
+        _north = new TalonFX(RobotMap.CAN.TALONFX.NORTH_SHOOTER, "Tomcat");
+        _north.setInverted(Constants.Shooter.NORTH_MOTOR_INVERTED);
+        _south = new TalonFX(RobotMap.CAN.TALONFX.SOUTH_SHOOTER, "Tomcat");
+        _south.setInverted(Constants.Shooter.SOUTH_MOTOR_INVERTED);
     }
 
-    public void setSpeed(){
-        _right.set(ControlMode.PercentOutput, Constants.Shooter.SHOOTER_SPEED);
-        _left.set(ControlMode.PercentOutput, Constants.Shooter.SHOOTER_SPEED);
+    public void setSpeed(double demand){
+        _north.set(ControlMode.PercentOutput, demand);
+        _south.set(ControlMode.PercentOutput, demand);
         _isShooting = true;
+    }
+
+    public double getVelocity(){
+        return _north.getSelectedSensorVelocity();
+    }
+
+    public double getTemp(){
+        return _north.getTemperature();
     }
 
     @Override
     public void updateDashboard() {
         metric("Shooting", _isShooting);
+        metric("Velocity", getVelocity());
+        metric("Temp", getTemp());
     }
 }
