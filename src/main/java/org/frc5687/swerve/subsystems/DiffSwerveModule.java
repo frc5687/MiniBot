@@ -52,8 +52,8 @@ public class DiffSwerveModule {
         _positionVector = positionVector;
 
         // setup both falcon motors.
-        _leftFalcon = new TalonFX(leftMotorID);
-        _rightFalcon = new TalonFX(rightMotorID);
+        _leftFalcon = new TalonFX(leftMotorID, "Tomcat");
+        _rightFalcon = new TalonFX(rightMotorID, "Tomcat");
         _leftFalcon.configFactoryDefault();
         _rightFalcon.configFactoryDefault();
         _rightFalcon.setInverted(false);

@@ -4,45 +4,22 @@ package org.frc5687.swerve;
 import static org.frc5687.swerve.Constants.DriveTrain.*;
 import static org.frc5687.swerve.util.Helpers.*;
 
-import org.frc5687.swerve.commands.Shoot;
-
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import org.frc5687.swerve.subsystems.DriveTrain;
-import org.frc5687.swerve.subsystems.Shooter;
-import org.frc5687.swerve.util.AxisButton;
 import org.frc5687.swerve.util.Gamepad;
 import org.frc5687.swerve.util.OutliersProxy;
 
 public class OI extends OutliersProxy {
     protected Gamepad _driverGamepad;
-    protected Joystick _leftJoystick;
-    protected Joystick _rightJoystick;
-
-    protected JoystickButton _shoot;
-    protected Button _driverRightStickButton;
 
     private double yIn = 0;
     private double xIn = 0;
 
     public OI() {
         _driverGamepad = new Gamepad(0);
-
-        _leftJoystick = new Joystick(1);
-        _rightJoystick = new Joystick(2);
-
-        _driverRightStickButton =
-                new JoystickButton(_driverGamepad, Gamepad.Buttons.RIGHT_STICK.getNumber());
-
-        _shoot = new JoystickButton(_driverGamepad, Gamepad.Buttons.A.getNumber());
-
-        
     }
 
-    public void initializeButtons(DriveTrain driveTrain, Shooter shooter) {
-        _shoot.whenHeld(new Shoot(shooter));
-    }
+    public void initializeButtons(DriveTrain driveTrain) {}
 
     public double getDriveY() {
         //        yIn = getSpeedFromAxis(_leftJoystick, _leftJoystick.getYChannel());
@@ -65,7 +42,7 @@ public class OI extends OutliersProxy {
     }
 
     public double getRotationX() {
-        double speed = getSpeedFromAxis(_rightJoystick, _rightJoystick.getZChannel());
+        double speed = getSpeedFromAxis(_driverGamepad, Gamepad.Axes.RIGHT_X.getNumber());
         speed = applyDeadband(speed, 0.2);
         return speed;
     }
@@ -75,5 +52,8 @@ public class OI extends OutliersProxy {
     }
 
     @Override
-    public void updateDashboard() {}
+    public void updateDashboard() {
+        metric("Raw x", xIn);
+        metric("Raw y", yIn);
+    }
 }
