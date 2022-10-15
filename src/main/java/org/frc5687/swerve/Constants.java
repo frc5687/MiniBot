@@ -96,4 +96,12 @@ public class Constants {
         public static final boolean NORTH_MOTOR_INVERTED = false;
         public static final boolean SOUTH_MOTOR_INVERTED = true;
     }
+
+    public static class Indexer {
+            public static final boolean INVERTED = false;
+            public static final int CAN_TIMEOUT = 200;
+
+            public static final double IDLE_SPEED = 0.1;
+            public static final double INDEX_SPEED = 0.45;
+    }
 }
