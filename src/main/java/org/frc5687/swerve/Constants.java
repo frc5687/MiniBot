@@ -12,30 +12,30 @@ public class Constants {
 
     public static class DriveTrain {
 
-        public static final double WIDTH = 0.6223;
-        public static final double LENGTH = 0.6223;
-        public static final Translation2d FRONT_LEFT_POSITION =
+        public static final double WIDTH = 0.4191; //meters between the wheels, taken from CAD
+        public static final double LENGTH = 0.4191; //meters between the wheels, taken from CAD
+        public static final Translation2d NW_POSITION =
                 new Translation2d(WIDTH / 2.0, LENGTH / 2.0);
-        public static final double FRONT_LEFT_ENCODER_OFFSET = -0.071; // radians
-        public static final Translation2d FRONT_RIGHT_POSITION =
+        public static final double NW_ENCODER_OFFSET = -0.122; // radians old -0.071
+        public static final Translation2d NE_POSITION =
                 new Translation2d(WIDTH / 2.0, -LENGTH / 2.0);
-        public static final double FRONT_RIGHT_ENCODER_OFFSET = -1.01; // radians
-        public static final Translation2d BACK_LEFT_POSITION =
+        public static final double NE_ENCODER_OFFSET = -0.122; // radians old -1.01
+        public static final Translation2d SW_POSITION =
                 new Translation2d(-WIDTH / 2.0, LENGTH / 2.0);
-        public static final double BACK_RIGHT_ENCODER_OFFSET = -0.122; // radians
-        public static final Translation2d BACK_RIGHT_POSITION =
+        public static final double SE_ENCODER_OFFSET = -0.122; // radians old -0.122
+        public static final Translation2d SE_POSITION =
                 new Translation2d(-WIDTH / 2.0, -LENGTH / 2.0);
-        public static final double BACK_LEFT_ENCODER_OFFSET = 0.585 + Math.PI; // radians
+        public static final double SW_ENCODER_OFFSET = -0.122; // radians old 0.585 + Math.PI
 
         public static final double DEADBAND = 0.1;
 
-        public static final double MAX_MPS = 3.5; // Max speed of robot (m/s) .
+        public static final double MAX_MPS = 3.5; // Max speed of robot (m/s) 0.5 for testing
 
         public static final double MAX_ANG_VEL =
-                Math.PI * 2.0; // Max rotation rate of robot (rads/s)
-        public static final double MAX_MPSS = 0.5; // Max acceleration of robot (m/s^2)
+                Math.PI * 2; // Max rotation rate of robot (rads/s) for testing
+        public static final double MAX_MPSS = 0.25; // Max acceleration of robot (m/s^2) for testing
 
-        public static final double ANGLE_kP = 3.5;
+        public static final double ANGLE_kP = 2.5;
         public static final double ANGLE_kI = 0.0;
         public static final double ANGLE_kD = 0.0;
 
@@ -54,8 +54,8 @@ public class Constants {
         public static final double FALCON_FREE_SPEED =
                 Units.rotationsPerMinuteToRadiansPerSecond(6380);
         public static final int TIMEOUT = 200;
-        public static final double GEAR_RATIO_WHEEL = 6.46875;
-        public static final double GEAR_RATIO_STEER = 9.2;
+        public static final double GEAR_RATIO_WHEEL = 6.46875 / 1.2;
+        public static final double GEAR_RATIO_STEER = 9.2 / 1.2;
         public static final double FALCON_RATE = 600.0;
         public static final double WHEEL_RADIUS = 0.0508; // Meters with compression.
         public static final double MAX_MODULE_SPEED_MPS =
@@ -88,5 +88,12 @@ public class Constants {
         public static final double SENSOR_AZIMUTH_ANG_VELOCITY_NOISE = 0.1; // radians per sec
         public static final double SENSOR_WHEEL_ANG_VELOCITY_NOISE = 0.1; // radians per sec
         public static final double CONTROL_EFFORT = VOLTAGE;
+    }
+
+    public static class Shooter {
+        public static final double SHOOTER_SHOOT_SPEED = 0.5;
+        public static final double SHOOTER_IDLE_SPEED = 0.2;
+        public static final boolean NORTH_MOTOR_INVERTED = false;
+        public static final boolean SOUTH_MOTOR_INVERTED = true;
     }
 }

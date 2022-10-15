@@ -5,7 +5,9 @@ import static org.frc5687.swerve.Constants.DifferentialSwerveModule.*;
 import static org.frc5687.swerve.Constants.DriveTrain.*;
 import static org.frc5687.swerve.RobotMap.CAN.TALONFX.*;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -21,6 +23,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.constraint.SwerveDriveKinematicsConstraint;
 import org.frc5687.swerve.OI;
 import org.frc5687.swerve.RobotMap;
+import org.frc5687.swerve.util.Helpers;
 import org.frc5687.swerve.util.OutliersContainer;
 
 public class DriveTrain extends OutliersSubsystem {
@@ -34,7 +37,9 @@ public class DriveTrain extends OutliersSubsystem {
 
     private double _PIDAngle;
 
+    // private Pigeon2 _imu;
     private AHRS _imu;
+
     private OI _oi;
 
     private HolonomicDriveController _controller;
@@ -48,32 +53,32 @@ public class DriveTrain extends OutliersSubsystem {
 
             _frontRight =
                     new DiffSwerveModule(
-                            FRONT_RIGHT_POSITION,
-                            FR_LEFT_FALCON,
-                            FR_RIGHT_FALCON,
-                            RobotMap.DIO.ENCODER_FR,
-                            FRONT_RIGHT_ENCODER_OFFSET);
+                            NE_POSITION,
+                            NE_INNER_FALCON,
+                            NE_OUTER_FALCON,
+                            RobotMap.DIO.ENCODER_NE,
+                            NE_ENCODER_OFFSET);
             _frontLeft =
                     new DiffSwerveModule(
-                            FRONT_LEFT_POSITION,
-                            FL_LEFT_FALCON,
-                            FL_RIGHT_FALCON,
-                            RobotMap.DIO.ENCODER_FL,
-                            FRONT_LEFT_ENCODER_OFFSET);
+                            NW_POSITION,
+                            NW_OUTER_FALCON,
+                            NW_INNER_FALCON,
+                            RobotMap.DIO.ENCODER_NW,
+                            NW_ENCODER_OFFSET);
             _backRight =
                     new DiffSwerveModule(
-                            BACK_RIGHT_POSITION,
-                            BR_LEFT_FALCON,
-                            BR_RIGHT_FALCON,
-                            RobotMap.DIO.ENCODER_BR,
-                            BACK_RIGHT_ENCODER_OFFSET);
+                            SE_POSITION,
+                            SE_INNER_FALCON,
+                            SE_OUTER_FALCON,
+                            RobotMap.DIO.ENCODER_SE,
+                            SE_ENCODER_OFFSET);
             _backLeft =
                     new DiffSwerveModule(
-                            BACK_LEFT_POSITION,
-                            BL_RIGHT_FALCON,
-                            BL_LEFT_FALCON,
-                            RobotMap.DIO.ENCODER_BL,
-                            BACK_LEFT_ENCODER_OFFSET);
+                            SW_POSITION,
+                            SW_OUTER_FALCON,
+                            SW_INNER_FALCON,
+                            RobotMap.DIO.ENCODER_SW,
+                            SW_ENCODER_OFFSET);
 
             _kinematics =
                     new SwerveDriveKinematics(
@@ -140,6 +145,15 @@ public class DriveTrain extends OutliersSubsystem {
         metric("BR/Predicted Wheel Vel", _backRight.getPredictedWheelVelocity());
 
         metric("Odometry Pose", getOdometryPose().toString());
+
+
+
+        metric("Pigeon/Yaw", getYaw());
+        metric("Heading", getHeading().getRadians());
+        metric("AngleController/LockedAngle", _PIDAngle);
+        metric("AngleController/power", _angleController.calculate(getHeading().getRadians(), _PIDAngle));
+        // metric("Pigeon/Roll", _imu.getRoll());
+        // metric("Pigeon/P, itch", _imu.getPitch());
     }
 
     public void setFrontRightModuleState(SwerveModuleState state) {
@@ -167,6 +181,9 @@ public class DriveTrain extends OutliersSubsystem {
         return Rotation2d.fromDegrees(-getYaw());
     }
 
+    /**
+     * Deprecated as the pigeon has no sure function
+     */
     public void resetYaw() {
         _imu.reset();
     }
