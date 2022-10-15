@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import org.frc5687.swerve.commands.Drive;
+import org.frc5687.swerve.commands.IdleShooter;
 import org.frc5687.swerve.commands.IdleIndexer;
 import org.frc5687.swerve.commands.OutliersCommand;
 import org.frc5687.swerve.subsystems.DriveTrain;
@@ -49,6 +50,7 @@ public class RobotContainer extends OutliersContainer {
 
         _oi.initializeButtons(_driveTrain, _shooter, _indexer);
 
+        setDefaultCommand(_shooter, new IdleShooter(_shooter));
         setDefaultCommand(_driveTrain, new Drive(_driveTrain, _oi));
         setDefaultCommand(_indexer, new IdleIndexer(_indexer));
         _robot.addPeriodic(this::controllerPeriodic, 0.005, 0.005);

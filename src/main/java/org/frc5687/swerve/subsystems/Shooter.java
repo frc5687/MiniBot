@@ -22,14 +22,21 @@ public class Shooter extends OutliersSubsystem{
         _south.setInverted(Constants.Shooter.SOUTH_MOTOR_INVERTED);
     }
 
-    public void setSpeed(double demand){
+    public void setNorthSpeed(double demand){
         _north.set(ControlMode.PercentOutput, demand);
-        _south.set(ControlMode.PercentOutput, demand);
-        _isShooting = true;
+        // _isShooting = true;
     }
 
-    public double getVelocity(){
+    public void setSouthSpeed(double demand) {
+        _south.set(ControlMode.PercentOutput, demand);
+    }
+
+    public double getNorthVelocityPer100ms(){
         return _north.getSelectedSensorVelocity();
+    }
+
+    public double getSouthVelocityPer100ms(){
+        return _south.getSelectedSensorVelocity();
     }
 
     public double getTemp(){
@@ -39,7 +46,7 @@ public class Shooter extends OutliersSubsystem{
     @Override
     public void updateDashboard() {
         metric("Shooting", _isShooting);
-        metric("Velocity", getVelocity());
+        metric("Velocity", getNorthVelocityPer100ms());
         metric("Temp", getTemp());
     }
 }
