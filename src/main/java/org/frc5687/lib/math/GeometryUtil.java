@@ -2,6 +2,7 @@
 package org.frc5687.lib.math;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 
 public class GeometryUtil {
 
@@ -29,4 +30,9 @@ public class GeometryUtil {
     public static Vector2d rotationToVector(Rotation2d rot) {
         return new Vector2d(rot.getCos(), rot.getSin());
     }
-}
+
+    public static Vector2d translationToVector(Translation2d trans) {
+        return new Vector2d(trans.getX(), trans.getY());
+    }
+} 
+

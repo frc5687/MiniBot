@@ -22,6 +22,8 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.constraint.SwerveDriveKinematicsConstraint;
 import java.util.Arrays;
 import java.util.List;
+
+import org.frc5687.lib.math.GeometryUtil;
 import org.frc5687.lib.math.Vector2d;
 import org.frc5687.swerve.Constants;
 import org.frc5687.swerve.OI;
@@ -39,10 +41,14 @@ public class DriveTrain extends OutliersSubsystem {
 
     // teleop values
     private Vector2d _translationVector;
+    private Vector2d _prevControlVector;
     private double _rotationInput;
     private ControlState _controlState;
     private boolean _fieldRelative;
     private boolean _lockHeading;
+
+    private Translation2d _clockwiseCenter;
+    private Translation2d _counterClockwiseCenter;
 
     private Pigeon2 _imu;
     private OI _oi;
@@ -116,6 +122,11 @@ public class DriveTrain extends OutliersSubsystem {
 
             _headingController = new SwerveHeadingController(Constants.DriveTrain.kDt);
             _translationVector = new Vector2d();
+            _prevControlVector = new Vector2d();
+
+            _clockwiseCenter = new Translation2d();
+            _counterClockwiseCenter = new Translation2d();
+
             _rotationInput = 0;
             _controlState = ControlState.NEUTRAL;
             _fieldRelative = true;
@@ -235,7 +246,27 @@ public class DriveTrain extends OutliersSubsystem {
 
         _rotationInput = omega;
         _translationVector = translation;
+        if (magnitude > 0.1) {
+            _prevControlVector = new Vector2d(vx, vy);
+        } else if (translation.x() == 0.0 &&  translation.y() == 0.0 && omega != 0.0) {
+            _prevControlVector = Vector2d.identity();
+        }
         //        _isMoving = vx != 0 || vy != 0 || !(Math.abs(omega) < ROTATING_TOLERANCE);
+    }
+
+    public void determineWheelForEvasion() {
+        Translation2d currentLocation = _prevControlVector.toTranslation().rotateBy(GeometryUtil.inverse(getHeading()));
+        _clockwiseCenter = _modules.get(0).getModulePosition();
+        _counterClockwiseCenter = _modules.get(_modules.size() - 1).getModulePosition();
+
+        for (int i = 0; i < _modules.size() - 1; i++) {
+            Vector2d clockwise = GeometryUtil.translationToVector(_modules.get(i).getModulePosition());
+            Vector2d counterClockwise = GeometryUtil.translationToVector(_modules.get(i + 1).getModulePosition());
+            if (GeometryUtil.translationToVector(currentLocation).isWithinAngle(clockwise, counterClockwise)) {
+                _clockwiseCenter = clockwise.toTranslation();
+                _counterClockwiseCenter = counterClockwise.toTranslation();
+            }
+        }
     }
 
     public void updateSwerve(Vector2d translationVector, double rotationalInput) {

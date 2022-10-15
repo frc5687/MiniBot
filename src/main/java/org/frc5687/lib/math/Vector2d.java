@@ -2,6 +2,8 @@
 package org.frc5687.lib.math;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+
 import org.frc5687.swerve.Constants;
 import org.frc5687.swerve.util.Helpers;
 
@@ -27,6 +29,11 @@ public class Vector2d {
     public Vector2d(Vector2d other) {
         _x = other._x;
         _y = other._y;
+    }
+
+    public Vector2d(final Vector2d start, final Vector2d end) {
+        _x = end._x - start._x;
+        _y = end._y - start._y;
     }
 
     public void setX(double x) {
@@ -74,12 +81,58 @@ public class Vector2d {
         return _x * other._x + _y * other._y;
     }
 
+    public Vector2d inverse() {
+        return new Vector2d(-_x, -_y);
+    }
+
+    public Vector2d interpolate(final Vector2d other, double x) {
+        if (x <= 0) {
+            return new Vector2d(this);
+        } else if (x >= 1) {
+            return new Vector2d(other);
+        }
+        return extrapolate(other, x);
+    }
+
+    public Vector2d extrapolate(final Vector2d other, double x) {
+        return new Vector2d(x * (other._x - _x) + _x, x * (other._y - _y) + _y);
+    }
+
+    public boolean isWithinAngle(Vector2d A, Vector2d B, Vector2d C, boolean vertical) {
+		Vector2d M = A.interpolate(C, 0.5); // midpoint
+		Vector2d m = (new Vector2d(B, M)).normalize(); // mid-vector
+		Vector2d a = (new Vector2d(B, A)).normalize(); // side vector
+		Vector2d d = (new Vector2d(B, this)).normalize(); // vector to here
+		if(vertical) {
+			m = m.inverse();
+			a = a.inverse();
+		}
+		return d.dot(m) > a.dot(m);
+	}
+
+	public boolean isWithinAngle(Vector2d A, Vector2d B, Vector2d C) {
+		return isWithinAngle(A, B, C, false);
+	}
+
+	/** Assumes an angle centered at the origin. */
+	public boolean isWithinAngle(Vector2d A, Vector2d C, boolean vertical) {
+		return isWithinAngle(A, identity(), C, vertical);
+	}
+
+	public boolean isWithinAngle(Vector2d A, Vector2d C) {
+		return isWithinAngle(A, C, false);
+	}
+
     public Rotation2d angle(Vector2d other) {
         double cosAngle = dot(other) / (magnitude() * other.magnitude());
         if (Double.isNaN(cosAngle)) {
             return new Rotation2d();
         }
         return new Rotation2d(Math.acos(Math.min(1.0, Math.max(cosAngle, -1.0))));
+    }
+
+    public Translation2d toTranslation() {
+        return new Translation2d(this._x, this._y);
     }
 
     public boolean equals(Vector2d other) {
