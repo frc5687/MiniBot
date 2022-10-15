@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import org.frc5687.swerve.commands.Drive;
+import org.frc5687.swerve.commands.IdleShooter;
 import org.frc5687.swerve.commands.OutliersCommand;
 import org.frc5687.swerve.subsystems.DriveTrain;
 import org.frc5687.swerve.subsystems.OutliersSubsystem;
@@ -40,12 +41,12 @@ public class RobotContainer extends OutliersContainer {
         // _pigeon.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_6_SensorFusion, 10, 10);
 
         _shooter = new Shooter(this);
-
         _driveTrain = new DriveTrain(this, _oi, _imu);
         
 
         _oi.initializeButtons(_driveTrain, _shooter);
 
+        setDefaultCommand(_shooter, new IdleShooter(_shooter));
         setDefaultCommand(_driveTrain, new Drive(_driveTrain, _oi));
         _robot.addPeriodic(this::controllerPeriodic, 0.005, 0.005);
     }
