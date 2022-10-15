@@ -20,9 +20,10 @@ public class RobotMap {
             public static final int SE_INNER_FALCON = 6;
             public static final int SW_INNER_FALCON = 7;
             public static final int SW_OUTER_FALCON = 8;
-            public static final int NORTH_WHEEL = 9;
-            public static final int SOUTH_WHEEL = 10;
-            public static final int INTAKE = 11;
+
+            public static final int NORTH_SHOOTER = 11;
+            public static final int SOUTH_SHOOTER = 10;
+            public static final int INTAKE = 12;
         }
 
         public static class PIGEON {

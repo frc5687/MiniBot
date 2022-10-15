@@ -5,7 +5,9 @@ import static org.frc5687.swerve.Constants.DifferentialSwerveModule.*;
 import static org.frc5687.swerve.Constants.DriveTrain.*;
 import static org.frc5687.swerve.RobotMap.CAN.TALONFX.*;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.Pigeon2;
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -21,6 +23,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.constraint.SwerveDriveKinematicsConstraint;
 import org.frc5687.swerve.OI;
 import org.frc5687.swerve.RobotMap;
+import org.frc5687.swerve.util.Helpers;
 import org.frc5687.swerve.util.OutliersContainer;
 
 public class DriveTrain extends OutliersSubsystem {
@@ -34,13 +37,15 @@ public class DriveTrain extends OutliersSubsystem {
 
     private double _PIDAngle;
 
-    private PigeonIMU _imu;
+    // private Pigeon2 _imu;
+    private AHRS _imu;
+
     private OI _oi;
 
     private HolonomicDriveController _controller;
     private ProfiledPIDController _angleController;
 
-    public DriveTrain(OutliersContainer container, OI oi, PigeonIMU imu) {
+    public DriveTrain(OutliersContainer container, OI oi, AHRS imu) {
         super(container);
         try {
             _oi = oi;
@@ -143,12 +148,12 @@ public class DriveTrain extends OutliersSubsystem {
 
 
 
-        metric("Pigeon/Up Time", _imu.getUpTime());
-        metric("Pigeon/Yaw", _imu.getYaw());
-        metric("Pigeon/Roll", _imu.getRoll());
-        metric("Pigeon/Pitch", _imu.getPitch());
-        metric("Pigeon/ABS Compass head", _imu.getAbsoluteCompassHeading());
-        metric("Pigeon/Get Temp", _imu.getTemp());
+        metric("Pigeon/Yaw", getYaw());
+        metric("Heading", getHeading().getRadians());
+        metric("AngleController/LockedAngle", _PIDAngle);
+        metric("AngleController/power", _angleController.calculate(getHeading().getRadians(), _PIDAngle));
+        // metric("Pigeon/Roll", _imu.getRoll());
+        // metric("Pigeon/P, itch", _imu.getPitch());
     }
 
     public void setFrontRightModuleState(SwerveModuleState state) {
@@ -180,7 +185,7 @@ public class DriveTrain extends OutliersSubsystem {
      * Deprecated as the pigeon has no sure function
      */
     public void resetYaw() {
-        
+        _imu.reset();
     }
 
     /**

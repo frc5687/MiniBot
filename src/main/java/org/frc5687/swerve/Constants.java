@@ -29,13 +29,13 @@ public class Constants {
 
         public static final double DEADBAND = 0.1;
 
-        public static final double MAX_MPS = 0.5; // Max speed of robot (m/s) 0.5 for testing
+        public static final double MAX_MPS = 3.5; // Max speed of robot (m/s) 0.5 for testing
 
         public static final double MAX_ANG_VEL =
-                Math.PI * 1; // Max rotation rate of robot (rads/s) for testing
+                Math.PI * 2; // Max rotation rate of robot (rads/s) for testing
         public static final double MAX_MPSS = 0.25; // Max acceleration of robot (m/s^2) for testing
 
-        public static final double ANGLE_kP = 3.5;
+        public static final double ANGLE_kP = 2.5;
         public static final double ANGLE_kI = 0.0;
         public static final double ANGLE_kD = 0.0;
 
@@ -54,8 +54,8 @@ public class Constants {
         public static final double FALCON_FREE_SPEED =
                 Units.rotationsPerMinuteToRadiansPerSecond(6380);
         public static final int TIMEOUT = 200;
-        public static final double GEAR_RATIO_WHEEL = 6.46875;
-        public static final double GEAR_RATIO_STEER = 9.2;
+        public static final double GEAR_RATIO_WHEEL = 6.46875 / 1.2;
+        public static final double GEAR_RATIO_STEER = 9.2 / 1.2;
         public static final double FALCON_RATE = 600.0;
         public static final double WHEEL_RADIUS = 0.0508; // Meters with compression.
         public static final double MAX_MODULE_SPEED_MPS =
@@ -100,11 +100,9 @@ public class Constants {
     }
 
     public static class Shooter {
-        public static final double NORTH_SPEED = 0.5;
-        public static final double SOUTH_SPEED = 0.5;
-        public static final double NORTH_IDLE_SPEED = 0.2;
-        public static final double SOUTH_IDLE_SPEED = 0.2;
-        public static final boolean NORTH_INVERTED = true;
-        public static final boolean SOUTH_INVERTED = false;
+        public static final double SHOOTER_SHOOT_SPEED = 0.5;
+        public static final double SHOOTER_IDLE_SPEED = 0.2;
+        public static final boolean NORTH_MOTOR_INVERTED = false;
+        public static final boolean SOUTH_MOTOR_INVERTED = true;
     }
 }
