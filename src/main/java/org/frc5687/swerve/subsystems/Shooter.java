@@ -16,9 +16,9 @@ public class Shooter extends OutliersSubsystem{
 
     public Shooter(OutliersContainer container) {
         super(container);
-        _north = new TalonFX(RobotMap.CAN.TALONFX.NORTH_SHOOTER, "Tomcat");
+        _north = new TalonFX(RobotMap.CAN.TALONFX.NORTH_SHOOTER, "rio");
         _north.setInverted(Constants.Shooter.NORTH_MOTOR_INVERTED);
-        _south = new TalonFX(RobotMap.CAN.TALONFX.SOUTH_SHOOTER, "Tomcat");
+        _south = new TalonFX(RobotMap.CAN.TALONFX.SOUTH_SHOOTER, "rio");
         _south.setInverted(Constants.Shooter.SOUTH_MOTOR_INVERTED);
     }
 
