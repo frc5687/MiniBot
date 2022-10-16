@@ -44,6 +44,10 @@ public class Constants {
         public static final double kD = 0.5;
         public static final double PROFILE_CONSTRAINT_VEL = 3.0 * Math.PI;
         public static final double PROFILE_CONSTRAINT_ACCEL = Math.PI;
+
+        public static final double AIM_kP = 0.5;
+        public static final double AIM_kI = 0.0;
+        public static final double AIM_kD = 0.0;
     }
 
     public static class DifferentialSwerveModule {
@@ -96,20 +100,26 @@ public class Constants {
         public static final boolean NORTH_MOTOR_INVERTED = false;
         public static final boolean SOUTH_MOTOR_INVERTED = true;
 
-        public static final double GEAR_RATIO = 3.0;
+        public static final double kP = 0.45;
+        public static final double kI = 0.0;
+        public static final double kD = 0.5;
+
+        public static final double GEAR_RATIO = 1.0;
         public static final double TICKS_PER_ROTATION = 2048;
         public static final double MS_TO_MINUETS = 600;
-        public static final double SHOOTING_FLYWHEEL_RPM = 1700; // rpm
+        public static final double SHOOTING_FLYWHEEL_RPM = 2500; // rpm
         public static final double WHEEL_RADIUS = Units.inchesToMeters(2.0);
         public static final long DELAY = 1500;
+        public static final double RPM_TOLERANCE = 500;
     }
 
     public static class Indexer {
             public static final boolean INVERTED = false;
             public static final int CAN_TIMEOUT = 200;
 
-            public static final double IDLE_SPEED = 0.2;
+            public static final double IDLE_SPEED = 0.3;
             public static final double STOP_SPEED = 0.0;
             public static final double INDEX_SPEED = 1.0;
+            public static final long DELAY = 500;
     }
 }

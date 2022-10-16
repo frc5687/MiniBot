@@ -18,12 +18,14 @@ import org.frc5687.swerve.subsystems.DriveTrain;
 import org.frc5687.swerve.subsystems.Indexer;
 import org.frc5687.swerve.subsystems.OutliersSubsystem;
 import org.frc5687.swerve.subsystems.Shooter;
+import org.frc5687.swerve.util.Limelight;
 import org.frc5687.swerve.util.OutliersContainer;
 
 public class RobotContainer extends OutliersContainer {
 
     private OI _oi;
     private AHRS _imu;
+    private Limelight _limelight;
     // private Pigeon2 _pigeon;
 
     private Shooter _shooter;
@@ -40,12 +42,13 @@ public class RobotContainer extends OutliersContainer {
     public void init() {
         _oi = new OI();
         _imu = new AHRS(SPI.Port.kMXP, (byte) 200);
+        _limelight = new Limelight("limelight");
         // _pigeon = new Pigeon2(RobotMap.CAN.PIGEON.PIGEON, "rio");
         // _pigeon.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_6_SensorFusion, 10, 10);
 
         _shooter = new Shooter(this);
         _indexer = new Indexer(this);
-        _driveTrain = new DriveTrain(this, _oi, _imu);
+        _driveTrain = new DriveTrain(this, _oi, _imu, _limelight);
         
 
         _oi.initializeButtons(_driveTrain, _shooter, _indexer);

@@ -14,6 +14,7 @@ public class Indexer extends OutliersSubsystem {
 
     private TalonFX _indexer;
     private ProximitySensor _firstBallSensor;
+    private ProximitySensor _secondBallSensor;
 
     public Indexer(OutliersContainer container) {
         super(container);
@@ -24,6 +25,7 @@ public class Indexer extends OutliersSubsystem {
         _indexer.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.Indexer.CAN_TIMEOUT);
 
         _firstBallSensor = new ProximitySensor(RobotMap.DIO.BALL_SENSOR_ONE);
+        _secondBallSensor = new ProximitySensor(RobotMap.DIO.BALL_SENSOR_TWO);
     }
 
     @Override
@@ -36,6 +38,10 @@ public class Indexer extends OutliersSubsystem {
     }
 
     public boolean isBallOneDetected() {
+        return _firstBallSensor.get();
+    }
+    
+    public boolean isBallTwoDetected() {
         return _firstBallSensor.get();
     }
 

@@ -4,6 +4,9 @@ package org.frc5687.swerve.commands;
 import static org.frc5687.swerve.Constants.DriveTrain.MAX_ANG_VEL;
 import static org.frc5687.swerve.Constants.DriveTrain.MAX_MPS;
 
+import org.frc5687.swerve.Constants;
+
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import org.frc5687.swerve.OI;
 import org.frc5687.swerve.subsystems.DriveTrain;
@@ -14,6 +17,8 @@ public class Drive extends OutliersCommand {
     private final SlewRateLimiter _vxFilter;
     private final SlewRateLimiter _vyFilter;
 
+    private final PIDController _aimController;
+
     private final OI _oi;
 
     public Drive(DriveTrain driveTrain, OI oi) {
@@ -21,6 +26,7 @@ public class Drive extends OutliersCommand {
         _oi = oi;
         _vxFilter = new SlewRateLimiter(3.0);
         _vyFilter = new SlewRateLimiter(3.0);
+        _aimController = new PIDController(Constants.DriveTrain.AIM_kP, Constants.DriveTrain.AIM_kI, Constants.DriveTrain.AIM_kD);
         addRequirements(_driveTrain);
     }
 
@@ -36,7 +42,8 @@ public class Drive extends OutliersCommand {
         //  driveX and driveY are swapped due to coordinate system that WPILib uses.
         double vx = _vxFilter.calculate(-_oi.getDriveY()) * MAX_MPS;
         double vy = _vyFilter.calculate(_oi.getDriveX()) * MAX_MPS;
-        double rot = -_oi.getRotationX() * MAX_ANG_VEL;
+        double rot = (_oi.autoAim() && _driveTrain.hasTarget()) ? _aimController.calculate(_driveTrain.getLimelightAngle()) : (-_oi.getRotationX() * MAX_ANG_VEL);
+
 
         _driveTrain.drive(vx, vy, rot, true);
     }
