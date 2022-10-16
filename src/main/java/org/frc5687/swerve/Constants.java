@@ -46,7 +46,7 @@ public class Constants {
             NORTH_WEST_CONFIG.canBus = CAN_BUS;
             NORTH_WEST_CONFIG.position = new Translation2d(SWERVE_NS_POS, SWERVE_WE_POS); // +,+
     
-            NORTH_WEST_CONFIG.encoderInverted = true;
+            NORTH_WEST_CONFIG.encoderInverted = false;
             NORTH_WEST_CONFIG.encoderOffset = 0.0;
         }
         public static final DiffSwerveModule.ModuleConfiguration SOUTH_WEST_CONFIG = new DiffSwerveModule.ModuleConfiguration();
@@ -55,7 +55,7 @@ public class Constants {
             SOUTH_WEST_CONFIG.canBus = CAN_BUS;
             SOUTH_WEST_CONFIG.position = new Translation2d(-SWERVE_NS_POS, SWERVE_WE_POS); // -,+
     
-            SOUTH_WEST_CONFIG.encoderInverted = true;
+            SOUTH_WEST_CONFIG.encoderInverted = false;
             SOUTH_WEST_CONFIG.encoderOffset = 0.0;
         }
         public static final DiffSwerveModule.ModuleConfiguration SOUTH_EAST_CONFIG = new DiffSwerveModule.ModuleConfiguration();
@@ -64,7 +64,7 @@ public class Constants {
             SOUTH_EAST_CONFIG.canBus = CAN_BUS;
             SOUTH_EAST_CONFIG.position = new Translation2d(-SWERVE_NS_POS, -SWERVE_WE_POS); // -,-
     
-            SOUTH_EAST_CONFIG.encoderInverted = true;
+            SOUTH_EAST_CONFIG.encoderInverted = false;
             SOUTH_EAST_CONFIG.encoderOffset = 0.0;
         }
         public static final DiffSwerveModule.ModuleConfiguration NORTH_EAST_CONFIG = new DiffSwerveModule.ModuleConfiguration();
@@ -73,7 +73,7 @@ public class Constants {
             NORTH_EAST_CONFIG.canBus = CAN_BUS;
             NORTH_EAST_CONFIG.position = new Translation2d(SWERVE_NS_POS, -SWERVE_WE_POS); // +,-
     
-            NORTH_EAST_CONFIG.encoderInverted = true;
+            NORTH_EAST_CONFIG.encoderInverted = false;
             NORTH_EAST_CONFIG.encoderOffset = 0.0;
         }
         public static final double kDt = 0.005; // 10 ms
@@ -146,8 +146,8 @@ public class Constants {
     
         public static final double FALCON_FREE_SPEED =
                 Units.rotationsPerMinuteToRadiansPerSecond(6380);
-        public static final double GEAR_RATIO_WHEEL = 6.46875;
-        public static final double GEAR_RATIO_STEER = 9.2;
+        public static final double GEAR_RATIO_WHEEL = 6.46875 / 1.2;
+        public static final double GEAR_RATIO_STEER = 9.2 / 1.2;
         public static final double FALCON_RATE = 600.0;
         public static final double WHEEL_RADIUS = 0.04615; // Meters with compression.
         public static final double TICKS_TO_ROTATIONS = 2048.0;
