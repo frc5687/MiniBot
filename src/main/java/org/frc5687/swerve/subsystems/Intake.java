@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import org.frc5687.swerve.Constants;
 import org.frc5687.swerve.RobotMap;
-import org.frc5687.swerve.Constants.INTAKE;
 import org.frc5687.swerve.RobotMap.CAN.TALONFX;
 import org.frc5687.swerve.util.OutliersContainer;
 

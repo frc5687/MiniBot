@@ -36,7 +36,9 @@ public class RobotMap {
      * There should be an entry here for each PWM port, preferrably in numerical order. Note that
      * for PWM only one device can connect to each port, so the numbers should be unique.
      */
-    public static class PWM {}
+    public static class PWM {
+        public static int ARM_SERVO = 0;
+    }
 
     /**
      * There should be an entry here for each PCM port, preferrably in numerical order. Note that
