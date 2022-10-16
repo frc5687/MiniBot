@@ -3,12 +3,11 @@ package org.frc5687.swerve.commands;
 import org.frc5687.swerve.Constants;
 import org.frc5687.swerve.subsystems.Intake;
 
-public class Retract extends OutliersCommand{
+public class RetractIntake extends OutliersCommand{
 
     private Intake _intake;
-    private long _delay;
     
-    public Retract(Intake intake){
+    public RetractIntake(Intake intake){
         _intake = intake;
         addRequirements(_intake);
     }
@@ -16,18 +15,17 @@ public class Retract extends OutliersCommand{
     @Override
     public void initialize(){
         super.initialize();
-        _delay = System.currentTimeMillis() + Constants.INTAKE.RETRACT_DELAY;
     }
 
     @Override
     public void execute(){
+        _intake.setArmAngle(Constants.Intake.RETRACTED_ARM_ANGLE);
         super.execute();
-        _intake.setSpeed(Constants.INTAKE.RETRACTING_SPEED);
     }
 
     @Override
     public boolean isFinished(){
-        return System.currentTimeMillis() > _delay;
+        return false;
     }
 
     @Override

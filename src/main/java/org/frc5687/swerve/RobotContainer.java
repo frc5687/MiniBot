@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import org.frc5687.swerve.commands.Drive;
 import org.frc5687.swerve.commands.IdleIntake;
 import org.frc5687.swerve.commands.OutliersCommand;
-import org.frc5687.swerve.commands.Retract;
+import org.frc5687.swerve.commands.RetractIntake;
 import org.frc5687.swerve.subsystems.DriveTrain;
 import org.frc5687.swerve.subsystems.Intake;
 import org.frc5687.swerve.commands.IdleShooter;

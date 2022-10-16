@@ -90,12 +90,12 @@ public class Constants {
         public static final double CONTROL_EFFORT = VOLTAGE;
     }
 
-    public static class INTAKE{
+    public static class Intake {
+        public static final double RETRACTED_ARM_ANGLE = 0;
+        public static final double EXTENDED_ARM_ANGLE = 0;
         public static final double INTAKEING_SPEED = 0.90;
-        public static final double RETRACTING_SPEED = -0.10;
         public static final double IDLE_INTAKEING_SPEED = 0.00; //-0.30;
         public static final double CLEANING_SPEED = 0.00;
-        public static final long RETRACT_DELAY = 2000;
         public static final boolean INVERTED = false;
     }
 

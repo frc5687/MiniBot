@@ -1,6 +1,7 @@
 
 package org.frc5687.swerve.commands;
 
+import org.frc5687.swerve.Constants;
 import org.frc5687.swerve.subsystems.Intake;
 
 public class IdleIntake extends OutliersCommand{
@@ -19,7 +20,8 @@ public class IdleIntake extends OutliersCommand{
 
     @Override
     public void execute(){
-        _intake.Idle();
+        _intake.setArmAngle(Constants.Intake.RETRACTED_ARM_ANGLE);
+        _intake.setRollerSpeed(0.0);
     }
 
     @Override
