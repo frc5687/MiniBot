@@ -35,10 +35,29 @@ public class Shooter extends OutliersSubsystem{
         return _north.getSelectedSensorVelocity();
     }
 
+    public double getNorthVelocityRPM() {
+        return getNorthVelocityPer100ms() / Constants.Shooter.TICKS_PER_ROTATION * Constants.Shooter.MS_TO_MINUETS;
+    }
+
+    public double getNorthFlywheelRPM() {
+        return getSouthVelocityRPM() / Constants.Shooter.GEAR_RATIO;
+    }
+
     public double getSouthVelocityPer100ms(){
         return _south.getSelectedSensorVelocity();
     }
 
+    public double getSouthVelocityRPM() {
+        return getSouthVelocityPer100ms() / Constants.Shooter.TICKS_PER_ROTATION * Constants.Shooter.MS_TO_MINUETS;
+    }
+
+    public double getSouthFlywheelRPM() {
+        return getSouthVelocityRPM() / Constants.Shooter.GEAR_RATIO;
+    }
+
+    public boolean isFlywheelUptoSpeed() {
+        return ((getSouthFlywheelRPM() + getNorthFlywheelRPM()) / 2.0) > Constants.Shooter.SHOOTING_FLYWHEEL_RPM; 
+    }
     public double getTemp(){
         return _north.getTemperature();
     }
@@ -47,6 +66,10 @@ public class Shooter extends OutliersSubsystem{
     public void updateDashboard() {
         metric("Shooting", _isShooting);
         metric("Velocity", getNorthVelocityPer100ms());
+        metric("IsFlywheelUptoSpeed", isFlywheelUptoSpeed());
+        metric("SouthRPM", getSouthFlywheelRPM());
+        metric("NorthRPM", getNorthFlywheelRPM());
+        metric("Combined", ((getSouthFlywheelRPM() + getNorthFlywheelRPM()) / 2.0));
         metric("Temp", getTemp());
     }
 }

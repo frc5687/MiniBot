@@ -20,7 +20,11 @@ public class IdleIndexer extends OutliersCommand {
 
     @Override
     public void execute() {
-        _indexer.setIndexerSpeed(Constants.Indexer.IDLE_SPEED);
+        if (_indexer.isBallOneDetected()) {
+            _indexer.setIndexerSpeed(Constants.Indexer.STOP_SPEED);
+        } else {
+            _indexer.setIndexerSpeed(Constants.Indexer.IDLE_SPEED);
+        }
     }
 
     @Override
