@@ -100,9 +100,9 @@ public class Constants {
         public static final boolean NORTH_MOTOR_INVERTED = false;
         public static final boolean SOUTH_MOTOR_INVERTED = true;
 
-        public static final double kP = 0.4;
+        public static final double kP = 0.45;
         public static final double kI = 0.0;
-        public static final double kD = 0.1;
+        public static final double kD = 0.5;
 
         public static final double GEAR_RATIO = 1.0;
         public static final double TICKS_PER_ROTATION = 2048;
