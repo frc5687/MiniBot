@@ -25,16 +25,32 @@ public class IdleIndexer extends OutliersCommand {
 
     @Override
     public void execute() {
+        metric("State", _state.name());
+        metric("First sensor", _indexer.isBallTwoDetected());
         switch(_state) {
             case IDLE:
                 _indexer.setIndexerSpeed(Constants.Indexer.IDLE_SPEED);
-                if (_indexer.isBallOneDetected()) {
+                if (_indexer.isBallTwoDetected()) {
                     _state = IndexingState.FIRST_BALL_DETECTED;
                 }
                 break;
             case FIRST_BALL_DETECTED:
-                _indexer.setIndexerSpeed(Constants.Indexer.STOP_SPEED);
-                _state = IndexingState.WAITING_FOR_BALL;
+                _indexer.setIndexerSpeed(Constants.Indexer.IDLE_SPEED);
+                if (_indexer.isBallTwoDetected()) {
+                    _state = IndexingState.WAIT;
+                    // _detectedDelay = System.currentTimeMillis() + Constants.Indexer.DELAY;
+                }
+                break;
+            case WAIT:
+                if (!_indexer.isBallTwoDetected()) {
+                    _state = IndexingState.WAITING_FOR_BALL;
+                } else {
+                    _indexer.setIndexerSpeed(Constants.Indexer.IDLE_SPEED);
+                }
+                // if (_detectedDelay < System.currentTimeMillis()) {
+                //     _indexer.setIndexerSpeed(Constants.Indexer.STOP_SPEED);
+                //     _state = IndexingState.WAITING_FOR_BALL;
+                // }
                 break;
             case WAITING_FOR_BALL:
                 _indexer.setIndexerSpeed(Constants.Indexer.STOP_SPEED);
@@ -45,14 +61,14 @@ public class IdleIndexer extends OutliersCommand {
                 break;
             case SECOND_BALL_DETECTED:
                 if (_detectedDelay > System.currentTimeMillis()) {
-                    _indexer.setIndexerSpeed(Constants.Indexer.INDEX_SPEED);
+                    _indexer.setIndexerSpeed(Constants.Indexer.IDLE_SPEED);
                 } else {
                     _indexer.setIndexerSpeed(Constants.Indexer.STOP_SPEED);
                     _state = IndexingState.STOP;
                 }
                 break;
             case STOP:
-                _indexer.setIndexerSpeed(Constants.Indexer.INDEX_SPEED);
+                _indexer.setIndexerSpeed(Constants.Indexer.STOP_SPEED);
                 break;
         }
     }
@@ -72,9 +88,10 @@ public class IdleIndexer extends OutliersCommand {
     private enum IndexingState {
         IDLE(0),
         FIRST_BALL_DETECTED(1),
-        WAITING_FOR_BALL(2),
-        SECOND_BALL_DETECTED(3),
-        STOP(4);
+        WAIT(2),
+        WAITING_FOR_BALL(3),
+        SECOND_BALL_DETECTED(4),
+        STOP(5);
 
         private final int _value;
         IndexingState(int value) { _value = value; }
