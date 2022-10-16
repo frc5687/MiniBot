@@ -23,7 +23,8 @@ public class RobotMap {
 
             public static final int NORTH_SHOOTER = 11;
             public static final int SOUTH_SHOOTER = 10;
-            public static final int INTAKE = 12;
+            public static final int INTAKE = 9;
+            public static final int INDEXER = 12;
         }
 
         public static class PIGEON {

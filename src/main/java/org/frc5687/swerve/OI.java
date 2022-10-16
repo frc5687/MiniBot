@@ -5,16 +5,13 @@ import static org.frc5687.swerve.Constants.DriveTrain.*;
 import static org.frc5687.swerve.util.Helpers.*;
 
 import org.frc5687.swerve.commands.AutoIntake;
-
+import org.frc5687.swerve.commands.Index;
+import org.frc5687.swerve.commands.Shoot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
 import org.frc5687.swerve.subsystems.DriveTrain;
 import org.frc5687.swerve.subsystems.Intake;
-
-import org.frc5687.swerve.commands.Shoot;
-
+import org.frc5687.swerve.subsystems.Indexer;
 import org.frc5687.swerve.subsystems.Shooter;
 import org.frc5687.swerve.util.Gamepad;
 import org.frc5687.swerve.util.OutliersProxy;
@@ -25,21 +22,23 @@ public class OI extends OutliersProxy {
     private JoystickButton _intake;
 
     private JoystickButton _shootBTN;
+    private JoystickButton _indexBTN;
+    private JoystickButton _intakeBTN;
 
     private double yIn = 0;
     private double xIn = 0;
 
     public OI() {
         _driverGamepad = new Gamepad(0);
-    }
-
-    public void initializeButtons(DriveTrain driveTrain, Intake intake) {
-        _intake.whenHeld(new AutoIntake(intake));
         _shootBTN = new JoystickButton(_driverGamepad, Gamepad.Buttons.B.getNumber());
+        _indexBTN = new JoystickButton(_driverGamepad, Gamepad.Buttons.Y.getNumber());
+        _intakeBTN = new JoystickButton(_driverGamepad, Gamepad.Buttons.A.getNumber());
     }
 
-    public void initializeButtons(DriveTrain driveTrain, Shooter shooter) {
+    public void initializeButtons(DriveTrain driveTrain, Shooter shooter, Indexer indexer, Intake intake) {
         _shootBTN.whenHeld(new Shoot(shooter));
+        _indexBTN.whenHeld(new Index(indexer));
+        _intakeBTN.whenHeld(new AutoIntake(intake));
     }
 
     public double getDriveY() {

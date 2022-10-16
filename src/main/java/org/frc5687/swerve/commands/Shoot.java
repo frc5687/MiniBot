@@ -20,12 +20,12 @@ public class Shoot extends OutliersCommand{
     @Override
     public void execute(){
         super.execute();
-        _shooter.setSpeed(Constants.Shooter.SHOOTER_SHOOT_SPEED);
+        _shooter.setNorthSpeed(Constants.Shooter.SHOOTER_SHOOT_SPEED);
+        _shooter.setSouthSpeed(Constants.Shooter.SHOOTER_SHOOT_SPEED);
     }
 
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
-        _shooter.setSpeed(Constants.Shooter.SHOOTER_IDLE_SPEED);
     }
 }

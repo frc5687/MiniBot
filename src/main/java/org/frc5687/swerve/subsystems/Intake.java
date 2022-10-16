@@ -39,7 +39,7 @@ public class Intake extends OutliersSubsystem{
      * Sets the intake to idle speed
      */
     public void Idle(){
-        _intake.set(ControlMode.PercentOutput, INTAKE.IDLE_INTAKEING_SPEED);
+        _intake.set(ControlMode.PercentOutput, INTAKE.RETRACTING_SPEED);
         _state = Intake_State.IDLE;
     }
 

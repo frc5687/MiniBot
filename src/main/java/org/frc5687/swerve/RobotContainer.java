@@ -13,8 +13,14 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import org.frc5687.swerve.commands.Drive;
 import org.frc5687.swerve.commands.IdleIntake;
 import org.frc5687.swerve.commands.OutliersCommand;
+import org.frc5687.swerve.commands.Retract;
 import org.frc5687.swerve.subsystems.DriveTrain;
 import org.frc5687.swerve.subsystems.Intake;
+import org.frc5687.swerve.commands.IdleShooter;
+import org.frc5687.swerve.commands.IdleIndexer;
+import org.frc5687.swerve.commands.OutliersCommand;
+import org.frc5687.swerve.subsystems.DriveTrain;
+import org.frc5687.swerve.subsystems.Indexer;
 import org.frc5687.swerve.subsystems.OutliersSubsystem;
 import org.frc5687.swerve.subsystems.Shooter;
 import org.frc5687.swerve.util.OutliersContainer;
@@ -26,6 +32,7 @@ public class RobotContainer extends OutliersContainer {
     // private Pigeon2 _pigeon;
 
     private Shooter _shooter;
+    private Indexer _indexer;
 
     private Robot _robot;
     private DriveTrain _driveTrain;
@@ -43,14 +50,17 @@ public class RobotContainer extends OutliersContainer {
         // _pigeon.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_6_SensorFusion, 10, 10);
 
         _shooter = new Shooter(this);
-
+        _indexer = new Indexer(this);
+        _intake = new Intake(this);
         _driveTrain = new DriveTrain(this, _oi, _imu);
         
 
-        _oi.initializeButtons(_driveTrain, _shooter);
+        _oi.initializeButtons(_driveTrain, _shooter, _indexer, _intake);
 
+        setDefaultCommand(_shooter, new IdleShooter(_shooter));
         setDefaultCommand(_driveTrain, new Drive(_driveTrain, _oi));
         setDefaultCommand(_intake, new IdleIntake(_intake));
+        setDefaultCommand(_indexer, new IdleIndexer(_indexer));
         _robot.addPeriodic(this::controllerPeriodic, 0.005, 0.005);
     }
 

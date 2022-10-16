@@ -92,7 +92,7 @@ public class Constants {
 
     public static class INTAKE{
         public static final double INTAKEING_SPEED = 0.90;
-        public static final double RETRACTING_SPEED = 0.00;
+        public static final double RETRACTING_SPEED = -0.10;
         public static final double IDLE_INTAKEING_SPEED = 0.00; //-0.30;
         public static final double CLEANING_SPEED = 0.00;
         public static final long RETRACT_DELAY = 2000;
@@ -104,5 +104,13 @@ public class Constants {
         public static final double SHOOTER_IDLE_SPEED = 0.2;
         public static final boolean NORTH_MOTOR_INVERTED = false;
         public static final boolean SOUTH_MOTOR_INVERTED = true;
+    }
+
+    public static class Indexer {
+            public static final boolean INVERTED = false;
+            public static final int CAN_TIMEOUT = 200;
+
+            public static final double IDLE_SPEED = 0.1;
+            public static final double INDEX_SPEED = 0.45;
     }
 }

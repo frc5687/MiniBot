@@ -1,28 +1,26 @@
 package org.frc5687.swerve.commands;
 
 import org.frc5687.swerve.Constants;
-import org.frc5687.swerve.subsystems.Shooter;
+import org.frc5687.swerve.subsystems.Indexer;
 
-import edu.wpi.first.wpilibj.AddressableLED;
+public class IdleIndexer extends OutliersCommand {
 
-public class IdleShooter extends OutliersCommand {
+    private Indexer _indexer;
 
-    private Shooter _shooter;
-    
-    public IdleShooter(Shooter shooter){
-        _shooter = shooter;
-        addRequirements(_shooter);
+    public IdleIndexer(Indexer indexer) {
+        _indexer = indexer;
+        addRequirements(_indexer);
     }
 
     @Override
     public void initialize() {
+        // TODO Auto-generated method stub
         super.initialize();
     }
 
     @Override
     public void execute() {
-        _shooter.setNorthSpeed(Constants.Shooter.SHOOTER_IDLE_SPEED);
-        _shooter.setSouthSpeed(Constants.Shooter.SHOOTER_IDLE_SPEED);
+        _indexer.setIndexerSpeed(Constants.Indexer.IDLE_SPEED);
     }
 
     @Override
@@ -36,4 +34,5 @@ public class IdleShooter extends OutliersCommand {
         // TODO Auto-generated method stub
         super.end(interrupted);
     }
+    
 }
