@@ -4,6 +4,7 @@ package org.frc5687.swerve;
 import static org.frc5687.swerve.Constants.DriveTrain.*;
 import static org.frc5687.swerve.util.Helpers.*;
 
+import org.frc5687.swerve.commands.AutoShoot;
 import org.frc5687.swerve.commands.Index;
 import org.frc5687.swerve.commands.Shoot;
 
@@ -32,7 +33,7 @@ public class OI extends OutliersProxy {
     }
 
     public void initializeButtons(DriveTrain driveTrain, Shooter shooter, Indexer indexer) {
-        _shootBTN.whenHeld(new Shoot(shooter));
+        _shootBTN.whenHeld(new AutoShoot(indexer, shooter));
         _indexBTN.whenHeld(new Index(indexer));
     }
 
