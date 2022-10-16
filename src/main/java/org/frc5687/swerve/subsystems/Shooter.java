@@ -2,6 +2,7 @@ package org.frc5687.swerve.subsystems;
 
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import org.frc5687.swerve.Constants;
@@ -18,8 +19,19 @@ public class Shooter extends OutliersSubsystem{
         super(container);
         _north = new TalonFX(RobotMap.CAN.TALONFX.NORTH_SHOOTER, "rio");
         _north.setInverted(Constants.Shooter.NORTH_MOTOR_INVERTED);
+        _north.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0 , 200);
+        _north.config_kP(0, Constants.Shooter.kP, 200);
+        _north.config_kI(0, Constants.Shooter.kI, 200);
+        _north.config_kD(0, Constants.Shooter.kD, 200);
+
         _south = new TalonFX(RobotMap.CAN.TALONFX.SOUTH_SHOOTER, "rio");
         _south.setInverted(Constants.Shooter.SOUTH_MOTOR_INVERTED);
+        _south.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0 , 200);
+        _south.config_kP(0, Constants.Shooter.kP, 200);
+        _south.config_kI(0, Constants.Shooter.kI, 200);
+        _south.config_kD(0, Constants.Shooter.kD, 200);
+
+
     }
 
     public void setNorthSpeed(double demand){
@@ -29,6 +41,7 @@ public class Shooter extends OutliersSubsystem{
 
     public void setNorthRPM(double RPM) {
         double ticks = RPM * Constants.Shooter.TICKS_PER_ROTATION / Constants.Shooter.MS_TO_MINUETS;
+        metric("NorthTicks Setpoint", ticks);
         _north.set(ControlMode.Velocity, ticks);
     }
 
@@ -38,7 +51,8 @@ public class Shooter extends OutliersSubsystem{
 
     public void setSouthRPM(double RPM) {
         double ticks = RPM * Constants.Shooter.TICKS_PER_ROTATION / Constants.Shooter.MS_TO_MINUETS;
-        _north.set(ControlMode.Velocity, ticks);
+        metric("SouthTicks Setpoint", ticks);
+        _south.set(ControlMode.Velocity, ticks);
     }
 
     public double getNorthVelocityPer100ms(){
@@ -50,7 +64,7 @@ public class Shooter extends OutliersSubsystem{
     }
 
     public double getNorthFlywheelRPM() {
-        return getSouthVelocityRPM() / Constants.Shooter.GEAR_RATIO;
+        return getNorthVelocityRPM() / Constants.Shooter.GEAR_RATIO;
     }
 
     public double getSouthVelocityPer100ms(){
