@@ -68,5 +68,6 @@ public class RobotMap {
         public static final int ENCODER_SW = 3;
 
         public static final int BALL_SENSOR_ONE = 4;
+        public static final int BALL_SENSOR_TWO = 5;
     }
 }

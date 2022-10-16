@@ -111,5 +111,6 @@ public class Constants {
             public static final double IDLE_SPEED = 0.2;
             public static final double STOP_SPEED = 0.0;
             public static final double INDEX_SPEED = 1.0;
+            public static final long DELAY = 200;
     }
 }
