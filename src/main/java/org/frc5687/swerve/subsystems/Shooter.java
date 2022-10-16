@@ -27,8 +27,18 @@ public class Shooter extends OutliersSubsystem{
         // _isShooting = true;
     }
 
+    public void setNorthRPM(double RPM) {
+        double ticks = RPM * Constants.Shooter.TICKS_PER_ROTATION / Constants.Shooter.MS_TO_MINUETS;
+        _north.set(ControlMode.Velocity, ticks);
+    }
+
     public void setSouthSpeed(double demand) {
         _south.set(ControlMode.PercentOutput, demand);
+    }
+
+    public void setSouthRPM(double RPM) {
+        double ticks = RPM * Constants.Shooter.TICKS_PER_ROTATION / Constants.Shooter.MS_TO_MINUETS;
+        _north.set(ControlMode.Velocity, ticks);
     }
 
     public double getNorthVelocityPer100ms(){
@@ -56,7 +66,7 @@ public class Shooter extends OutliersSubsystem{
     }
 
     public boolean isFlywheelUptoSpeed() {
-        return ((getSouthFlywheelRPM() + getNorthFlywheelRPM()) / 2.0) > Constants.Shooter.SHOOTING_FLYWHEEL_RPM; 
+        return Math.abs(((getSouthFlywheelRPM() + getNorthFlywheelRPM()) / 2.0) - Constants.Shooter.SHOOTING_FLYWHEEL_RPM) < Constants.Shooter.RPM_TOLERANCE; 
     }
     public double getTemp(){
         return _north.getTemperature();
