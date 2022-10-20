@@ -5,7 +5,6 @@ import org.frc5687.swerve.commands.OutliersCommand;
 import org.frc5687.swerve.subsystems.DriveTrain;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 
 /**
  * Drive in autonomous mode (i.e., no OI control) to a field-relative pose.

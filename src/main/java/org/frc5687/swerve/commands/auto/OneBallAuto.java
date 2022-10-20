@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 import org.frc5687.swerve.commands.Shoot;
+import org.frc5687.swerve.config.Auto;
 import org.frc5687.swerve.subsystems.DriveTrain;
 import org.frc5687.swerve.subsystems.Indexer;
 import org.frc5687.swerve.subsystems.Shooter;
@@ -89,7 +90,7 @@ public class OneBallAuto extends SequentialCommandGroup {
         _destination = new Pose2d(_translation, _rotation);
         _velocity = 0.2;
         addCommands(
-            new Shoot(catapult, indexer),
+            new Shoot(shooter),
             new DriveToPose(driveTrain, _destination, _velocity)
         );
     }
