@@ -44,6 +44,10 @@ public class Constants {
         public static final double kD = 0.5;
         public static final double PROFILE_CONSTRAINT_VEL = 3.0 * Math.PI;
         public static final double PROFILE_CONSTRAINT_ACCEL = Math.PI;
+
+        public static final double AIM_kP = 0.0;
+        public static final double AIM_kI = 0.0;
+        public static final double AIM_kD = 0.0;
     }
 
     public static class DifferentialSwerveModule {
