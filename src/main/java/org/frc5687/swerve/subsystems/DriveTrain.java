@@ -108,7 +108,7 @@ public class DriveTrain extends OutliersSubsystem {
                             ANGLE_kD,
                             new TrapezoidProfile.Constraints(
                                     PROFILE_CONSTRAINT_VEL, PROFILE_CONSTRAINT_ACCEL));
-            _angleController.enableContinuousInput(-Math.PI / 2.0, Math.PI / 2.0);
+            _angleController.enableContinuousInput(-Math.PI, Math.PI);
         } catch (Exception e) {
             error(e.getMessage());
         }

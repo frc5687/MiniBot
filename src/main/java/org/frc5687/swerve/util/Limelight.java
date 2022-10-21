@@ -1,6 +1,7 @@
 package org.frc5687.swerve.util;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import org.photonvision.PhotonCamera;
 import org.photonvision.common.hardware.VisionLEDMode;
 import org.photonvision.targeting.PhotonPipelineResult;
@@ -23,10 +24,16 @@ public class Limelight {
 
     public double getYaw() {
         //Gets the realitive yaw of the target
-        if (_camera.getLatestResult().hasTargets()) {
-            return _camera.getLatestResult().getBestTarget().getYaw();
+        double val = 0;
+        try {
+            if (_camera.getLatestResult().hasTargets()) {
+                val = _camera.getLatestResult().getBestTarget().getYaw();
+            }
+        } catch (Exception e) {
+            DriverStation.reportError("null val", false);
+            return 0.0;
         }
-        return 0.0;
+        return val;
     }
 
     public double getArea(){
@@ -54,11 +61,7 @@ public class Limelight {
 
     public boolean hasTarget() {
         //Does the limelight have a target
-        if (_camera.getLatestResult().hasTargets()) {
-            _latest = _camera.getLatestResult();
-            return true;
-        }
-        return false;
+        return _camera.getLatestResult().hasTargets();
     }
 
     public void enableLEDs(){
