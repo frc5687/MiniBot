@@ -21,9 +21,10 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.constraint.SwerveDriveKinematicsConstraint;
+import edu.wpi.first.math.util.Units;
 import org.frc5687.swerve.OI;
 import org.frc5687.swerve.RobotMap;
-import org.frc5687.swerve.util.Helpers;
+import org.frc5687.swerve.util.Limelight;
 import org.frc5687.swerve.util.OutliersContainer;
 
 public class DriveTrain extends OutliersSubsystem {
@@ -39,17 +40,19 @@ public class DriveTrain extends OutliersSubsystem {
 
     // private Pigeon2 _imu;
     private AHRS _imu;
+    private Limelight _limelight;
 
     private OI _oi;
 
     private HolonomicDriveController _controller;
     private ProfiledPIDController _angleController;
 
-    public DriveTrain(OutliersContainer container, OI oi, AHRS imu) {
+    public DriveTrain(OutliersContainer container, OI oi, AHRS imu, Limelight limelight) {
         super(container);
         try {
             _oi = oi;
             _imu = imu;
+            _limelight = limelight;
 
             _frontRight =
                     new DiffSwerveModule(
@@ -152,6 +155,9 @@ public class DriveTrain extends OutliersSubsystem {
         metric("Heading", getHeading().getRadians());
         metric("AngleController/LockedAngle", _PIDAngle);
         metric("AngleController/power", _angleController.calculate(getHeading().getRadians(), _PIDAngle));
+
+        metric("Limelight angle", getLimelightAngle());
+        metric("Has target", hasTarget());
         // metric("Pigeon/Roll", _imu.getRoll());
         // metric("Pigeon/P, itch", _imu.getPitch());
     }
@@ -269,5 +275,13 @@ public class DriveTrain extends OutliersSubsystem {
         _frontLeft.start();
         _backLeft.start();
         _backRight.start();
+    }
+
+    public double getLimelightAngle() {
+        return Units.degreesToRadians(_limelight.getYaw());
+//        return 0.0;
+    }
+    public boolean hasTarget() {
+        return _limelight.hasTarget();
     }
 }

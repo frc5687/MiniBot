@@ -8,10 +8,13 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import org.frc5687.swerve.Constants;
 import org.frc5687.swerve.RobotMap;
 import org.frc5687.swerve.util.OutliersContainer;
+import org.frc5687.swerve.util.ProximitySensor;
 
 public class Indexer extends OutliersSubsystem {
 
     private TalonFX _indexer;
+    private ProximitySensor _firstBallSensor;
+    private ProximitySensor _secondBallSensor;
 
     public Indexer(OutliersContainer container) {
         super(container);
@@ -20,6 +23,9 @@ public class Indexer extends OutliersSubsystem {
         _indexer.setInverted(Constants.Indexer.INVERTED);
         _indexer.setNeutralMode(NeutralMode.Coast);
         _indexer.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, Constants.Indexer.CAN_TIMEOUT);
+
+        _firstBallSensor = new ProximitySensor(RobotMap.DIO.BALL_SENSOR_ONE);
+        _secondBallSensor = new ProximitySensor(RobotMap.DIO.BALL_SENSOR_TWO);
     }
 
     @Override
@@ -31,8 +37,17 @@ public class Indexer extends OutliersSubsystem {
         _indexer.set(ControlMode.PercentOutput, demand);
     }
 
+    public boolean isBallOneDetected() {
+        return _firstBallSensor.get();
+    }
+    
+    public boolean isBallTwoDetected() {
+        return _firstBallSensor.get();
+    }
+
     @Override
     public void updateDashboard() {
+        metric("BallDetected", isBallOneDetected());
         // TODO Auto-generated method stub
     }
 
