@@ -33,14 +33,10 @@ public class AutoShoot extends OutliersCommand {
         metric("Switch state", _indexer.isBallOneDetected() && _shooter.isFlywheelUptoSpeed());
         switch(_state) {
             case WAITING: {
+                _indexer.setIndexerSpeed(0.0);
                 _shooter.setNorthRPM(Constants.Shooter.SHOOTING_FLYWHEEL_RPM);
                 _shooter.setSouthRPM(Constants.Shooter.SHOOTING_FLYWHEEL_RPM);
-                if (_indexer.isBallOneDetected()) {
-                    _indexer.setIndexerSpeed(Constants.Indexer.STOP_SPEED);
-                } else {
-                    _indexer.setIndexerSpeed(Constants.Indexer.IDLE_SPEED);
-                }
-                if (_indexer.isBallOneDetected() && _shooter.isFlywheelUptoSpeed() && _delay < System.currentTimeMillis()) {
+                if (_shooter.isFlywheelUptoSpeed() && _delay < System.currentTimeMillis()) {
                    _state = AutoShootingState.SHOOTING;
                 }
                 break;
