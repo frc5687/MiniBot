@@ -13,7 +13,6 @@ public class RobotMap {
 
         public static class TALONFX { //updated for minibot, compass based
             public static final int NW_OUTER_FALCON = 1;
-
             public static final int NW_INNER_FALCON = 2;
             public static final int NE_INNER_FALCON = 3;
             public static final int NE_OUTER_FALCON = 4;
@@ -24,7 +23,8 @@ public class RobotMap {
 
             public static final int NORTH_SHOOTER = 11;
             public static final int SOUTH_SHOOTER = 10;
-
+            public static final int INTAKE_ROLLER = 9;
+            public static final int INTAKE_ARM = 13;
             public static final int INDEXER = 12;
         }
 
@@ -37,7 +37,8 @@ public class RobotMap {
      * There should be an entry here for each PWM port, preferrably in numerical order. Note that
      * for PWM only one device can connect to each port, so the numbers should be unique.
      */
-    public static class PWM {}
+    public static class PWM {
+    }
 
     /**
      * There should be an entry here for each PCM port, preferrably in numerical order. Note that
@@ -66,6 +67,7 @@ public class RobotMap {
         public static final int ENCODER_NE = 1;
         public static final int ENCODER_SE = 2;
         public static final int ENCODER_SW = 3;
+        public static final int ENCODER_ARM = 6;
 
         public static final int BALL_SENSOR_ONE = 5;
         public static final int BALL_SENSOR_TWO = 4;

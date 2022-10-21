@@ -21,9 +21,9 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.constraint.SwerveDriveKinematicsConstraint;
+import edu.wpi.first.math.util.Units;
 import org.frc5687.swerve.OI;
 import org.frc5687.swerve.RobotMap;
-import org.frc5687.swerve.util.Helpers;
 import org.frc5687.swerve.util.Limelight;
 import org.frc5687.swerve.util.OutliersContainer;
 
@@ -108,7 +108,7 @@ public class DriveTrain extends OutliersSubsystem {
                             ANGLE_kD,
                             new TrapezoidProfile.Constraints(
                                     PROFILE_CONSTRAINT_VEL, PROFILE_CONSTRAINT_ACCEL));
-            _angleController.enableContinuousInput(-Math.PI / 2.0, Math.PI / 2.0);
+            _angleController.enableContinuousInput(-Math.PI, Math.PI);
         } catch (Exception e) {
             error(e.getMessage());
         }
@@ -155,6 +155,9 @@ public class DriveTrain extends OutliersSubsystem {
         metric("Heading", getHeading().getRadians());
         metric("AngleController/LockedAngle", _PIDAngle);
         metric("AngleController/power", _angleController.calculate(getHeading().getRadians(), _PIDAngle));
+
+        metric("Limelight angle", getLimelightAngle());
+        metric("Has target", hasTarget());
         // metric("Pigeon/Roll", _imu.getRoll());
         // metric("Pigeon/P, itch", _imu.getPitch());
     }
@@ -275,10 +278,8 @@ public class DriveTrain extends OutliersSubsystem {
     }
 
     public double getLimelightAngle() {
-        if (_limelight.hasTarget()) {
-            return _limelight.getYaw();
-        }
-        return 0;
+        return Units.degreesToRadians(_limelight.getYaw());
+//        return 0.0;
     }
     public boolean hasTarget() {
         return _limelight.hasTarget();

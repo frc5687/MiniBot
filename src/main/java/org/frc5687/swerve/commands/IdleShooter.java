@@ -5,7 +5,7 @@ import org.frc5687.swerve.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 
-public class IdleShooter extends OutliersCommand{
+public class IdleShooter extends OutliersCommand {
 
     private Shooter _shooter;
     

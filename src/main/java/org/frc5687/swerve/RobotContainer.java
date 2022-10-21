@@ -1,16 +1,17 @@
 /* Team 5687 (C)2021 */
 package org.frc5687.swerve;
 
-import com.ctre.phoenix.sensors.Pigeon2;
-import com.ctre.phoenix.sensors.PigeonIMU;
-import com.ctre.phoenix.sensors.PigeonIMU_StatusFrame;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import org.frc5687.swerve.commands.Drive;
+import org.frc5687.swerve.commands.IdleIntake;
+import org.frc5687.swerve.commands.OutliersCommand;
+import org.frc5687.swerve.commands.RetractIntake;
+import org.frc5687.swerve.subsystems.DriveTrain;
+import org.frc5687.swerve.subsystems.Intake;
 import org.frc5687.swerve.commands.IdleShooter;
 import org.frc5687.swerve.commands.IdleIndexer;
 import org.frc5687.swerve.commands.OutliersCommand;
@@ -33,6 +34,7 @@ public class RobotContainer extends OutliersContainer {
 
     private Robot _robot;
     private DriveTrain _driveTrain;
+    private Intake _intake;
 
     public RobotContainer(Robot robot, IdentityMode identityMode) {
         super(identityMode);
@@ -48,13 +50,15 @@ public class RobotContainer extends OutliersContainer {
 
         _shooter = new Shooter(this);
         _indexer = new Indexer(this);
+        _intake = new Intake(this);
         _driveTrain = new DriveTrain(this, _oi, _imu, _limelight);
-        
 
-        _oi.initializeButtons(_driveTrain, _shooter, _indexer);
+
+        _oi.initializeButtons(_driveTrain, _shooter, _indexer, _intake);
 
         setDefaultCommand(_shooter, new IdleShooter(_shooter));
         setDefaultCommand(_driveTrain, new Drive(_driveTrain, _oi));
+        setDefaultCommand(_intake, new IdleIntake(_intake));
         setDefaultCommand(_indexer, new IdleIndexer(_indexer));
         _robot.addPeriodic(this::controllerPeriodic, 0.005, 0.005);
     }
@@ -83,6 +87,7 @@ public class RobotContainer extends OutliersContainer {
     @Override
     public void updateDashboard() {
         _driveTrain.updateDashboard();
+        _intake.updateDashboard();
         _indexer.updateDashboard();
         _shooter.updateDashboard();
     }
