@@ -34,7 +34,7 @@ public class OI extends OutliersProxy {
         _indexBTN = new JoystickButton(_driverGamepad, Gamepad.Buttons.A.getNumber());
 
         // -0.8 meaning when trigger is -80% it counts as a button press.
-        _autoAim = new AxisButton(_driverGamepad, Gamepad.Axes.LEFT_TRIGGER.getNumber(), -0.8);
+        _autoAim = new AxisButton(_driverGamepad, Gamepad.Axes.RIGHT_TRIGGER.getNumber(), 0.2);
     }
 
     public void initializeButtons(DriveTrain driveTrain, Shooter shooter, Indexer indexer) {

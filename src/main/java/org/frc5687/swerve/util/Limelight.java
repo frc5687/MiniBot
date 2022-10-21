@@ -3,10 +3,12 @@ package org.frc5687.swerve.util;
 import edu.wpi.first.math.util.Units;
 import org.photonvision.PhotonCamera;
 import org.photonvision.common.hardware.VisionLEDMode;
+import org.photonvision.targeting.PhotonPipelineResult;
 
 public class Limelight {
 
     private PhotonCamera _camera;
+    private PhotonPipelineResult _latest;
     private boolean _inDriverMode;
 
     public Limelight(String cameraName){
@@ -21,8 +23,8 @@ public class Limelight {
 
     public double getYaw() {
         //Gets the realitive yaw of the target
-        if(hasTarget()){
-            return Units.degreesToRadians(_camera.getLatestResult().getBestTarget().getYaw());
+        if (_camera.getLatestResult().hasTargets()) {
+            return _camera.getLatestResult().getBestTarget().getYaw();
         }
         return 0.0;
     }
@@ -52,7 +54,11 @@ public class Limelight {
 
     public boolean hasTarget() {
         //Does the limelight have a target
-        return _camera.getLatestResult().hasTargets();
+        if (_camera.getLatestResult().hasTargets()) {
+            _latest = _camera.getLatestResult();
+            return true;
+        }
+        return false;
     }
 
     public void enableLEDs(){
