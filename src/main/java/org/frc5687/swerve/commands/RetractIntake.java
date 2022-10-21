@@ -19,7 +19,7 @@ public class RetractIntake extends OutliersCommand{
 
     @Override
     public void execute(){
-        _intake.setArmAngle(Constants.Intake.RETRACTED_ARM_ANGLE);
+        _intake.setArmSpeed(_intake.getArmAngleControllerOutput(Constants.Intake.RETRACTED_ARM_ANGLE));
         super.execute();
     }
 

@@ -23,7 +23,8 @@ public class RobotMap {
 
             public static final int NORTH_SHOOTER = 11;
             public static final int SOUTH_SHOOTER = 10;
-            public static final int INTAKE = 9;
+            public static final int INTAKE_ROLLER = 9;
+            public static final int INTAKE_ARM = 13;
             public static final int INDEXER = 12;
         }
 
@@ -37,7 +38,6 @@ public class RobotMap {
      * for PWM only one device can connect to each port, so the numbers should be unique.
      */
     public static class PWM {
-        public static int ARM_SERVO = 0;
     }
 
     /**
@@ -68,5 +68,6 @@ public class RobotMap {
         public static final int ENCODER_SE = 2;
         public static final int ENCODER_SW = 3;
         public static final int INTAKE_BEAM_BREAK = 4;
+        public static final int ENCODER_ARM = 6;
     }
 }

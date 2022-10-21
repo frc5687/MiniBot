@@ -20,7 +20,7 @@ public class IdleIntake extends OutliersCommand{
 
     @Override
     public void execute(){
-        _intake.setArmAngle(Constants.Intake.RETRACTED_ARM_ANGLE);
+        _intake.setArmSpeed(_intake.getArmAngleControllerOutput(Constants.Intake.RETRACTED_ARM_ANGLE));
         _intake.setRollerSpeed(0.0);
     }
 

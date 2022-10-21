@@ -17,7 +17,7 @@ public class AutoIntake extends OutliersCommand{
     @Override
     public void execute(){
         super.execute();
-        _intake.setArmAngle(Constants.Intake.EXTENDED_ARM_ANGLE);
+        _intake.setArmSpeed(_intake.getArmAngleControllerOutput(Constants.Intake.EXTENDED_ARM_ANGLE));
         _intake.setRollerSpeed(Constants.Intake.INTAKEING_SPEED);
     }
 

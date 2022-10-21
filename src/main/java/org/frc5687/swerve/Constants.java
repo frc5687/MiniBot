@@ -91,12 +91,23 @@ public class Constants {
     }
 
     public static class Intake {
-        public static final double RETRACTED_ARM_ANGLE = 90;
-        public static final double EXTENDED_ARM_ANGLE = 20;
+        public static final int CAN_TIMOUT = 200;
+        public static final double RETRACTED_ARM_ANGLE = Units.degreesToRadians(90);
+        public static final double EXTENDED_ARM_ANGLE = Units.degreesToRadians(20);
         public static final double INTAKEING_SPEED = 0.90;
         public static final double IDLE_INTAKEING_SPEED = 0.00; //-0.30;
         public static final double CLEANING_SPEED = 0.00;
-        public static final boolean INVERTED = true;
+        public static final boolean ROLLER_INVERTED = true;
+        public static final boolean ARM_INVERTED = false;
+
+        public static final double ENCODER_OFFSET = 0.0;
+
+        public static final double kP = 0.0;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
+
+        public static final double PROFILE_CONSTRAINT_VEL = 2.0 * Math.PI;
+        public static final double PROFILE_CONSTRAINT_ACCEL = Math.PI;
     }
 
     public static class Shooter {
