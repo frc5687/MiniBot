@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
@@ -23,7 +24,7 @@ public class Intake extends OutliersSubsystem{
     private TalonFX _arm;
 
     private DutyCycleEncoder _armEncoder;
-    private ProfiledPIDController _armController;
+    private PIDController _armController;
 
 
     public Intake(OutliersContainer container){
@@ -38,16 +39,17 @@ public class Intake extends OutliersSubsystem{
         _armEncoder = new DutyCycleEncoder(RobotMap.DIO.ENCODER_ARM);
         _armEncoder.setDistancePerRotation(2.0 * Math.PI);
 
-        _armController = new ProfiledPIDController(
+        _armController = new PIDController(
                 Constants.Intake.kP, // proportional constant.
                 Constants.Intake.kI, // integral constant.
-                Constants.Intake.kD, // derivative constant.
+                Constants.Intake.kD // derivative constant.
                 // we are adding a trapezoidal profile to the controller, so the arm has smooth control
-                new TrapezoidProfile.Constraints(
-                        PROFILE_CONSTRAINT_VEL, // max velocity constraint rad/s
-                        PROFILE_CONSTRAINT_ACCEL // max acceleration constraint is rad/s^2
-                )
+//                new TrapezoidProfile.Constraints(
+//                        Constants.Intake.PROFILE_CONSTRAINT_VEL, // max velocity constraint rad/s
+//                        Constants.Intake.PROFILE_CONSTRAINT_ACCEL // max acceleration constraint is rad/s^2
+//                )
         );
+        _armController.setTolerance(Units.degreesToRadians(5));
     }
 
     public void setArmSpeed(double demand) {
@@ -59,7 +61,10 @@ public class Intake extends OutliersSubsystem{
      * @return Output of the ProfilePIDController given a reference.
      */
     public double getArmAngleControllerOutput(double angleReference) {
-        return _armController.calculate(getArmAngle(), angleReference);
+        metric("Angle ref", angleReference);
+        double pow = _armController.calculate(getArmAngle(), angleReference);
+        metric("controller power", pow);
+        return pow;
     }
     /**
      * Bore encoder measurement in radians.
@@ -77,5 +82,5 @@ public class Intake extends OutliersSubsystem{
     public void updateDashboard() {
         metric("Arm Angle Radians", getArmAngle());
         metric("Arm Angle Degrees", Units.radiansToDegrees(getArmAngle()));
-    }  
+    }
 }
