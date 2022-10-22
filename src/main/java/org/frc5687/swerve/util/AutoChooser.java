@@ -19,6 +19,7 @@ public class AutoChooser extends OutliersProxy {
 
         _modeChooser = new SendableChooser<>();
         _modeChooser.addOption("One Ball", Mode.OneBall);
+        _modeChooser.addOption("Two Ball", Mode.TwoBall);
         SmartDashboard.putData("Auto Mode", _modeChooser);
     }
 

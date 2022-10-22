@@ -13,6 +13,7 @@ import org.frc5687.swerve.commands.IdleIntake;
 import org.frc5687.swerve.commands.OutliersCommand;
 import org.frc5687.swerve.commands.RetractIntake;
 import org.frc5687.swerve.commands.auto.OneBallAuto;
+import org.frc5687.swerve.commands.auto.TwoBallAuto;
 import org.frc5687.swerve.subsystems.DriveTrain;
 import org.frc5687.swerve.subsystems.Intake;
 import org.frc5687.swerve.commands.IdleShooter;
@@ -95,8 +96,15 @@ public class RobotContainer extends OutliersContainer {
         s.setDefaultCommand(subSystem, command);
     }
     public Command getAutonomousCommand() {
-        // Return command sequence based on auto mode selected and pass in starting position
-        return new OneBallAuto(_driveTrain, _shooter, _indexer, _autoPosition);
+        switch (_autoMode) {
+            case OneBall:
+                error("Using one ball");
+                return new OneBallAuto(_driveTrain, _shooter, _indexer, _autoPosition);
+            case TwoBall:
+                error("Using two ball");
+                return new TwoBallAuto(_driveTrain, _shooter, _intake,  _indexer, _autoPosition);
+        }
+        return new WaitCommand(15);
     }
     @Override
     public void updateDashboard() {
