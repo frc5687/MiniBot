@@ -48,6 +48,7 @@ public class Constants {
         public static final double AIM_kI = 0.0;
         public static final double AIM_kD = 0.5;
         public static final double POSITION_TOLERANCE = 0.03;
+        public static final double AIM_TOLERANCE = 0.03; // rad
     }
 
     public static class DifferentialSwerveModule {

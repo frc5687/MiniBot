@@ -87,6 +87,8 @@ public class Robot extends OutliersRobot implements ILoggingSource {
     public void autonomousInit() {
         _fmsConnected = DriverStation.isFMSAttached();
         _robotContainer.autonomousInit();
+        _autoCommand = _robotContainer.getAutonomousCommand();
+
         if (_autoCommand != null) {
             _autoCommand.schedule();
         }

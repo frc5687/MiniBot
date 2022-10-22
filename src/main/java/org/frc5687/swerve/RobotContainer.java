@@ -96,11 +96,7 @@ public class RobotContainer extends OutliersContainer {
     }
     public Command getAutonomousCommand() {
         // Return command sequence based on auto mode selected and pass in starting position
-        switch (_autoMode) {
-            case OneBall:
-                return new OneBallAuto(_driveTrain, _shooter, _indexer, _autoPosition);
-        }
-        return new WaitCommand(15);
+        return new OneBallAuto(_driveTrain, _shooter, _indexer, _autoPosition);
     }
     @Override
     public void updateDashboard() {

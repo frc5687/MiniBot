@@ -38,12 +38,12 @@ public class OI extends OutliersProxy {
         _shootBTN = new JoystickButton(_operatorGamepad, Gamepad.Buttons.RIGHT_BUMPER.getNumber());
         _indexBTN = new JoystickButton(_driverGamepad, Gamepad.Buttons.Y.getNumber());
         _intakeBTN = new JoystickButton(_operatorGamepad, Gamepad.Buttons.A.getNumber());
+        _autoAim = new AxisButton(_driverGamepad, Gamepad.Axes.RIGHT_TRIGGER.getNumber(), 0.2);
     }
 
     public void initializeButtons(DriveTrain driveTrain, Shooter shooter, Indexer indexer, Intake intake) {
         _shootBTN.whenHeld(new Shoot(shooter, indexer));
         // -0.8 meaning when trigger is -80% it counts as a button press.
-        _autoAim = new AxisButton(_driverGamepad, Gamepad.Axes.RIGHT_TRIGGER.getNumber(), 0.2);
         _intakeBTN.whenHeld(new AutoIntake(intake));
     }
 

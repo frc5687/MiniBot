@@ -13,7 +13,7 @@ public class DriveToPose extends OutliersCommand {
 
     private final Pose2d _destination;
     private final DriveTrain _driveTrain;
-    private Double _velocity;
+    private double _velocity;
 
     /**
      * Create DriveAuto command
@@ -36,6 +36,7 @@ public class DriveToPose extends OutliersCommand {
     @Override
     public void initialize() {
         super.initialize();
+        info("AutoPose started");
         _driveTrain.startModules();
     }
 

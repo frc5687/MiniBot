@@ -133,8 +133,7 @@ public class DriveTrain extends OutliersSubsystem {
     public void periodic() {
         _odometry.update(
                 getHeading(),
-                _northWest
-        .getState(),
+                _northWest.getState(),
                 _northEast.getState(),
                 _southWest.getState(),
                 _southEast.getState());
@@ -142,19 +141,19 @@ public class DriveTrain extends OutliersSubsystem {
 
     @Override
     public void updateDashboard() {
-        metric("BR/Encoder Angle", _southEast.getModuleAngle());
-        metric("BL/Encoder Angle", _southWest.getModuleAngle());
-        metric("FL/Encoder Angle", _northWest
-.getModuleAngle());
-        metric("FR/Encoder Angle", _northEast.getModuleAngle());
-
-        metric("BR/Predicted Angle", _southEast.getPredictedAzimuthAngle());
-
-        metric("BR/Encoder Azimuth Vel", _southEast.getAzimuthAngularVelocity());
-        metric("BR/Predicted Azimuth Vel", _southEast.getPredictedAzimuthAngularVelocity());
-
-        metric("BR/Encoder Wheel Vel", _southEast.getWheelVelocity());
-        metric("BR/Predicted Wheel Vel", _southEast.getPredictedWheelVelocity());
+//        metric("BR/Encoder Angle", _southEast.getModuleAngle());
+//        metric("BL/Encoder Angle", _southWest.getModuleAngle());
+//        metric("FL/Encoder Angle", _northWest
+//.getModuleAngle());
+//        metric("FR/Encoder Angle", _northEast.getModuleAngle());
+//
+//        metric("BR/Predicted Angle", _southEast.getPredictedAzimuthAngle());
+//
+//        metric("BR/Encoder Azimuth Vel", _southEast.getAzimuthAngularVelocity());
+//        metric("BR/Predicted Azimuth Vel", _southEast.getPredictedAzimuthAngularVelocity());
+//
+//        metric("BR/Encoder Wheel Vel", _southEast.getWheelVelocity());
+//        metric("BR/Predicted Wheel Vel", _southEast.getPredictedWheelVelocity());
 
         metric("Odometry Pose", getOdometryPose().toString());
 
@@ -282,7 +281,7 @@ public class DriveTrain extends OutliersSubsystem {
     public void poseFollower(Pose2d pose, double vel) {
         ChassisSpeeds adjustedSpeeds = _controller.calculate(getOdometryPose(), pose, vel, pose.getRotation());
         SwerveModuleState[] moduleStates = _kinematics.toSwerveModuleStates(adjustedSpeeds);
-        SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, Constants.DriveTrain.MAX_MPS);
+        SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, MAX_MODULE_SPEED_MPS);
         setNorthWestModuleState(moduleStates[NORTH_WEST]);
         setSouthWestModuleState(moduleStates[SOUTH_WEST]);
         setSouthEastModuleState(moduleStates[SOUTH_EAST]);
@@ -321,4 +320,9 @@ public class DriveTrain extends OutliersSubsystem {
     public boolean hasTarget() {
         return _limelight.hasTarget();
     }
+
+    public boolean onTarget() {
+        return Math.abs(getLimelightAngle()) < Constants.DriveTrain.AIM_TOLERANCE;
+    }
 }
+

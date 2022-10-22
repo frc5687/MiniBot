@@ -3,6 +3,7 @@ package org.frc5687.swerve.commands.auto;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
+import org.frc5687.swerve.commands.AutoAim;
 import org.frc5687.swerve.commands.AutoShoot;
 import org.frc5687.swerve.commands.Shoot;
 import org.frc5687.swerve.config.Auto;
@@ -41,8 +42,9 @@ public class OneBallAuto extends SequentialCommandGroup {
             _destination = new Pose2d();
             velocity = 0.2;
             addCommands(
-                new AutoShoot(indexer, shooter),
-                new DriveToPose(driveTrain, _destination, velocity)
+                new DriveToPose(driveTrain, _destination, velocity),
+                new AutoAim(driveTrain),
+                new AutoShoot(indexer, shooter)
             );
             return;
         }
@@ -91,8 +93,9 @@ public class OneBallAuto extends SequentialCommandGroup {
         _destination = new Pose2d(_translation, _rotation);
         velocity = 0.2;
         addCommands(
-            new AutoShoot(indexer, shooter),
-            new DriveToPose(driveTrain, _destination, velocity)
+                new DriveToPose(driveTrain, _destination, velocity),
+                new AutoAim(driveTrain),
+                new AutoShoot(indexer, shooter)
         );
     }
 }
