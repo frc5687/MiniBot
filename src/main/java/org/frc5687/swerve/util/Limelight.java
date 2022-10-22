@@ -1,12 +1,15 @@
 package org.frc5687.swerve.util;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import org.photonvision.PhotonCamera;
 import org.photonvision.common.hardware.VisionLEDMode;
+import org.photonvision.targeting.PhotonPipelineResult;
 
 public class Limelight {
 
     private PhotonCamera _camera;
+    private PhotonPipelineResult _latest;
     private boolean _inDriverMode;
 
     public Limelight(String cameraName){
@@ -21,10 +24,16 @@ public class Limelight {
 
     public double getYaw() {
         //Gets the realitive yaw of the target
-        if(hasTarget()){
-            return Units.degreesToRadians(_camera.getLatestResult().getBestTarget().getYaw());
+        double val = 0;
+        try {
+            if (_camera.getLatestResult().hasTargets()) {
+                val = _camera.getLatestResult().getBestTarget().getYaw();
+            }
+        } catch (Exception e) {
+            DriverStation.reportError("null val", false);
+            return 0.0;
         }
-        return 0.0;
+        return val;
     }
 
     public double getArea(){

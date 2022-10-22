@@ -35,7 +35,7 @@ public class Constants {
                 Math.PI * 2; // Max rotation rate of robot (rads/s) for testing
         public static final double MAX_MPSS = 0.25; // Max acceleration of robot (m/s^2) for testing
 
-        public static final double ANGLE_kP = 2.5;
+        public static final double ANGLE_kP = 3.5;
         public static final double ANGLE_kI = 0.0;
         public static final double ANGLE_kD = 0.0;
 
@@ -44,11 +44,9 @@ public class Constants {
         public static final double kD = 0.5;
         public static final double PROFILE_CONSTRAINT_VEL = 3.0 * Math.PI;
         public static final double PROFILE_CONSTRAINT_ACCEL = Math.PI;
-
-        public static final double AIM_kP = 0.5;
+        public static final double AIM_kP = 8.5;
         public static final double AIM_kI = 0.0;
-        public static final double AIM_kD = 0.0;
-
+        public static final double AIM_kD = 0.5;
         public static final double POSITION_TOLERANCE = 0.03;
     }
 
@@ -96,23 +94,44 @@ public class Constants {
         public static final double CONTROL_EFFORT = VOLTAGE;
     }
 
+    public static class Intake {
+        public static final int CAN_TIMOUT = 200;
+        public static final double RETRACTED_ARM_ANGLE = Units.degreesToRadians(173);
+        public static final double EXTENDED_ARM_ANGLE = Units.degreesToRadians(130);
+        public static final double INTAKEING_SPEED = 1.00;
+        public static final double IDLE_INTAKEING_SPEED = 0.00; //-0.30;
+        public static final double CLEANING_SPEED = 0.00;
+        public static final boolean ROLLER_INVERTED = true;
+        public static final boolean ARM_INVERTED = false;
+
+        public static final double ENCODER_OFFSET = 0.0;
+
+        public static final double kP = 0.8;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
+
+//        public static final double PROFILE_CONSTRAINT_VEL = 0.5 * Math.PI;
+//        public static final double PROFILE_CONSTRAINT_ACCEL =  0.25 * Math.PI;
+    }
+
     public static class Shooter {
         public static final double SHOOTER_SHOOT_SPEED = 1.0;
-        public static final double SHOOTER_IDLE_SPEED = -0.2;
+        public static final double SHOOTER_IDLE_SPEED = 0.3;
         public static final boolean NORTH_MOTOR_INVERTED = false;
         public static final boolean SOUTH_MOTOR_INVERTED = true;
 
-        public static final double kP = 0.45;
+        public static final double kP = 0.5;
         public static final double kI = 0.0;
-        public static final double kD = 0.5;
+        public static final double kD = 3.5;
 
         public static final double GEAR_RATIO = 1.0;
         public static final double TICKS_PER_ROTATION = 2048;
         public static final double MS_TO_MINUETS = 600;
-        public static final double SHOOTING_FLYWHEEL_RPM = 2500; // rpm
+        public static final double SHOOTING_FLYWHEEL_RPM = 2900; // rpm
         public static final double WHEEL_RADIUS = Units.inchesToMeters(2.0);
-        public static final long DELAY = 1500;
-        public static final double RPM_TOLERANCE = 500;
+        public static final long DELAY = 200;
+        public static final double RPM_TOLERANCE = 300;
+        public static final long AUTO_DELAY = 1000;
     }
 
     public static class Indexer {
@@ -121,7 +140,7 @@ public class Constants {
 
             public static final double IDLE_SPEED = 0.3;
             public static final double STOP_SPEED = 0.0;
-            public static final double INDEX_SPEED = 1.0;
+            public static final double INDEX_SPEED = 0.9;
             public static final long DELAY = 500;
     }
 }

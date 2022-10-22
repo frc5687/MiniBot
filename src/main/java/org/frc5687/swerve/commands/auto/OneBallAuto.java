@@ -3,6 +3,7 @@ package org.frc5687.swerve.commands.auto;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
+import org.frc5687.swerve.commands.AutoShoot;
 import org.frc5687.swerve.commands.Shoot;
 import org.frc5687.swerve.config.Auto;
 import org.frc5687.swerve.subsystems.DriveTrain;
@@ -31,17 +32,17 @@ public class OneBallAuto extends SequentialCommandGroup {
         Indexer indexer,
         AutoChooser.Position position
     ) {
-        Double _velocity;
+        double velocity;
 
         _bypass = false;
         if (_bypass) {
             _translation = new Translation2d();
             _rotation = new Rotation2d();
             _destination = new Pose2d();
-            _velocity = 0.2;
+            velocity = 0.2;
             addCommands(
-                new Shoot(shooter),
-                new DriveToPose(driveTrain, _destination, _velocity)
+                new AutoShoot(indexer, shooter),
+                new DriveToPose(driveTrain, _destination, velocity)
             );
             return;
         }
@@ -88,10 +89,10 @@ public class OneBallAuto extends SequentialCommandGroup {
         }
 
         _destination = new Pose2d(_translation, _rotation);
-        _velocity = 0.2;
+        velocity = 0.2;
         addCommands(
-            new Shoot(shooter),
-            new DriveToPose(driveTrain, _destination, _velocity)
+            new AutoShoot(indexer, shooter),
+            new DriveToPose(driveTrain, _destination, velocity)
         );
     }
 }

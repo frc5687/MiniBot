@@ -9,10 +9,11 @@ public class AutoShoot extends OutliersCommand {
     private Indexer _indexer;
     private Shooter _shooter;
 
-    private long _delay;
+    private long _shootDelay;
+    private long _autoDelay;
 
     private AutoShootingState _state;
-    
+
     public AutoShoot(Indexer indexer, Shooter shooter) {
         _indexer = indexer;
         _shooter = shooter;
@@ -23,7 +24,9 @@ public class AutoShoot extends OutliersCommand {
     @Override
     public void initialize() {
         super.initialize();
-        _delay = System.currentTimeMillis() + Constants.Shooter.DELAY;
+        _shootDelay = System.currentTimeMillis() + Constants.Shooter.DELAY;
+        // make very long so we don't have a null pointer at the start
+        _autoDelay = System.currentTimeMillis() + (Constants.Shooter.AUTO_DELAY * Constants.Shooter.AUTO_DELAY);
         _state = AutoShootingState.WAITING;
     }
 
@@ -33,14 +36,10 @@ public class AutoShoot extends OutliersCommand {
         metric("Switch state", _indexer.isBallOneDetected() && _shooter.isFlywheelUptoSpeed());
         switch(_state) {
             case WAITING: {
+                _indexer.setIndexerSpeed(0.0);
                 _shooter.setNorthRPM(Constants.Shooter.SHOOTING_FLYWHEEL_RPM);
                 _shooter.setSouthRPM(Constants.Shooter.SHOOTING_FLYWHEEL_RPM);
-                if (_indexer.isBallOneDetected()) {
-                    _indexer.setIndexerSpeed(Constants.Indexer.STOP_SPEED);
-                } else {
-                    _indexer.setIndexerSpeed(Constants.Indexer.IDLE_SPEED);
-                }
-                if (_indexer.isBallOneDetected() && _shooter.isFlywheelUptoSpeed() && _delay < System.currentTimeMillis()) {
+                if (_shooter.isFlywheelUptoSpeed() && _shootDelay < System.currentTimeMillis()) {
                    _state = AutoShootingState.SHOOTING;
                 }
                 break;
@@ -49,6 +48,7 @@ public class AutoShoot extends OutliersCommand {
                 _shooter.setNorthRPM(Constants.Shooter.SHOOTING_FLYWHEEL_RPM);
                 _shooter.setSouthRPM(Constants.Shooter.SHOOTING_FLYWHEEL_RPM);
                 _indexer.setIndexerSpeed(Constants.Indexer.INDEX_SPEED);
+                _autoDelay = System.currentTimeMillis() + Constants.Shooter.AUTO_DELAY;
                 break;
             }
         }
@@ -56,8 +56,7 @@ public class AutoShoot extends OutliersCommand {
 
     @Override
     public boolean isFinished() {
-            // TODO Auto-generated method stub
-            return super.isFinished();
+        return _autoDelay < System.currentTimeMillis();
     }
 
     @Override

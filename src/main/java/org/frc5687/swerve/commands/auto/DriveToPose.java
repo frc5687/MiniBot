@@ -13,9 +13,6 @@ public class DriveToPose extends OutliersCommand {
 
     private final Pose2d _destination;
     private final DriveTrain _driveTrain;
-    // private final SlewRateLimiter _vxFilter;
-    // private final SlewRateLimiter _vyFilter;
-
     private Double _velocity;
 
     /**

@@ -80,7 +80,7 @@ public class Shooter extends OutliersSubsystem{
     }
 
     public boolean isFlywheelUptoSpeed() {
-        return Math.abs(((getSouthFlywheelRPM() + getNorthFlywheelRPM()) / 2.0) - Constants.Shooter.SHOOTING_FLYWHEEL_RPM) < Constants.Shooter.RPM_TOLERANCE; 
+        return Math.abs(((getSouthFlywheelRPM() + getNorthFlywheelRPM()) / 2.0) - Constants.Shooter.SHOOTING_FLYWHEEL_RPM) < Constants.Shooter.RPM_TOLERANCE;
     }
     public double getTemp(){
         return _north.getTemperature();
@@ -89,7 +89,8 @@ public class Shooter extends OutliersSubsystem{
     @Override
     public void updateDashboard() {
         metric("Shooting", _isShooting);
-        metric("Velocity", getNorthVelocityPer100ms());
+        metric("VelocityTicksNorth", getNorthVelocityPer100ms());
+        metric("VelocityTicksSouth", getSouthVelocityPer100ms());
         metric("IsFlywheelUptoSpeed", isFlywheelUptoSpeed());
         metric("SouthRPM", getSouthFlywheelRPM());
         metric("NorthRPM", getNorthFlywheelRPM());

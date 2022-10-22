@@ -43,6 +43,9 @@ public class Drive extends OutliersCommand {
         double vx = _vxFilter.calculate(-_oi.getDriveY()) * MAX_MPS;
         double vy = _vyFilter.calculate(_oi.getDriveX()) * MAX_MPS;
         double rot = (_oi.autoAim() && _driveTrain.hasTarget()) ? _aimController.calculate(_driveTrain.getLimelightAngle()) : (-_oi.getRotationX() * MAX_ANG_VEL);
+        metric("Aim controller", _aimController.calculate(_driveTrain.getLimelightAngle()));
+        metric("rot", rot);
+        metric("Aiming pressed", _oi.autoAim());
 
 
         _driveTrain.drive(vx, vy, rot, true);
