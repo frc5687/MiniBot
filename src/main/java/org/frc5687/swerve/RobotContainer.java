@@ -34,7 +34,7 @@ public class RobotContainer extends OutliersContainer {
 
     private Robot _robot;
     private DriveTrain _driveTrain;
-    private Intake _intake;
+    //private Intake _intake;
 
     public RobotContainer(Robot robot, IdentityMode identityMode) {
         super(identityMode);
@@ -50,15 +50,15 @@ public class RobotContainer extends OutliersContainer {
 
         _shooter = new Shooter(this);
         _indexer = new Indexer(this);
-        _intake = new Intake(this);
+        //_intake = new Intake(this);
         _driveTrain = new DriveTrain(this, _oi, _imu, _limelight);
 
 
-        _oi.initializeButtons(_driveTrain, _shooter, _indexer, _intake);
+        _oi.initializeButtons(_driveTrain, _shooter, _indexer /*, _intake*/);
 
         setDefaultCommand(_shooter, new IdleShooter(_shooter));
         setDefaultCommand(_driveTrain, new Drive(_driveTrain, _oi));
-        setDefaultCommand(_intake, new IdleIntake(_intake));
+        //setDefaultCommand(_intake, new IdleIntake(_intake));
         setDefaultCommand(_indexer, new IdleIndexer(_indexer));
         _robot.addPeriodic(this::controllerPeriodic, 0.005, 0.005);
     }
@@ -87,7 +87,7 @@ public class RobotContainer extends OutliersContainer {
     @Override
     public void updateDashboard() {
         _driveTrain.updateDashboard();
-        _intake.updateDashboard();
+        //_intake.updateDashboard();
         _indexer.updateDashboard();
         _shooter.updateDashboard();
     }

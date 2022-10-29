@@ -5,6 +5,7 @@ import static org.frc5687.swerve.Constants.DriveTrain.MAX_ANG_VEL;
 import static org.frc5687.swerve.Constants.DriveTrain.MAX_MPS;
 
 import org.frc5687.swerve.Constants;
+import org.frc5687.swerve.util.Helpers;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -40,8 +41,12 @@ public class Drive extends OutliersCommand {
     public void execute() {
         super.execute();
         //  driveX and driveY are swapped due to coordinate system that WPILib uses.
-        double vx = _vxFilter.calculate(-_oi.getDriveY()) * MAX_MPS;
-        double vy = _vyFilter.calculate(_oi.getDriveX()) * MAX_MPS;
+        double vx = _vxFilter.calculate(-_oi.getDriveY());
+        double vy = _vyFilter.calculate(_oi.getDriveX());
+
+        vx = Helpers.applySensitivityFactor(vx, Constants.DriveTrain.VX_SENSITIVITY) * MAX_MPS;
+        vy = Helpers.applySensitivityFactor(vy, Constants.DriveTrain.VY_SENSITIVITY) * MAX_MPS;
+
         double rot = (_oi.autoAim() && _driveTrain.hasTarget()) ? _aimController.calculate(_driveTrain.getLimelightAngle()) : (-_oi.getRotationX() * MAX_ANG_VEL);
         metric("Aim controller", _aimController.calculate(_driveTrain.getLimelightAngle()));
         metric("rot", rot);

@@ -12,6 +12,9 @@ public class Constants {
 
     public static class DriveTrain {
 
+        public static final double VX_SENSITIVITY = 0.5;
+        public static final double VY_SENSITIVITY = 0.5;
+
         public static final double WIDTH = 0.4191; //meters between the wheels, taken from CAD
         public static final double LENGTH = 0.4191; //meters between the wheels, taken from CAD
         public static final Translation2d NW_POSITION =
@@ -29,7 +32,7 @@ public class Constants {
 
         public static final double DEADBAND = 0.1;
 
-        public static final double MAX_MPS = 3.5; // Max speed of robot (m/s) 0.5 for testing
+        public static final double MAX_MPS = 2.5; // Max speed of robot (m/s) 0.5 for testing
 
         public static final double MAX_ANG_VEL =
                 Math.PI * 2; // Max rotation rate of robot (rads/s) for testing
