@@ -16,7 +16,7 @@ public class Constants {
         public static final double LENGTH = 0.4191; //meters between the wheels, taken from CAD
         public static final Translation2d NW_POSITION =
                 new Translation2d(WIDTH / 2.0, LENGTH / 2.0);
-        public static final double NW_ENCODER_OFFSET = -0.122; // radians old -0.071
+        public static final double NW_ENCODER_OFFSET = -0.112; // radians old -0.071
         public static final Translation2d NE_POSITION =
                 new Translation2d(WIDTH / 2.0, -LENGTH / 2.0);
         public static final double NE_ENCODER_OFFSET = -0.122; // radians old -1.01
