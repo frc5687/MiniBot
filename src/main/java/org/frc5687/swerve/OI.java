@@ -6,8 +6,6 @@ import static org.frc5687.swerve.util.Helpers.*;
 
 import org.frc5687.swerve.commands.AutoIntake;
 import org.frc5687.swerve.commands.AutoShoot;
-import org.frc5687.swerve.commands.Index;
-import org.frc5687.swerve.commands.Shoot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import org.frc5687.swerve.subsystems.DriveTrain;
@@ -28,6 +26,7 @@ public class OI extends OutliersProxy {
     private JoystickButton _indexBTN;
     private JoystickButton _intakeBTN;
     private AxisButton _autoAim;
+    private JoystickButton _navxReset;
 
     private double yIn = 0;
     private double xIn = 0;
@@ -39,12 +38,14 @@ public class OI extends OutliersProxy {
         _indexBTN = new JoystickButton(_driverGamepad, Gamepad.Buttons.Y.getNumber());
         _intakeBTN = new JoystickButton(_operatorGamepad, Gamepad.Buttons.A.getNumber());
         _autoAim = new AxisButton(_driverGamepad, Gamepad.Axes.RIGHT_TRIGGER.getNumber(), 0.2);
+        _navxReset = new JoystickButton(_driverGamepad, Gamepad.Buttons.B.getNumber());
     }
 
     public void initializeButtons(DriveTrain driveTrain, Shooter shooter, Indexer indexer, Intake intake) {
         _shootBTN.whenHeld(new AutoShoot(indexer, shooter));
         // -0.8 meaning when trigger is -80% it counts as a button press.
         _intakeBTN.whenHeld(new AutoIntake(intake));
+        _navxReset.whenPressed(driveTrain::resetYaw);
     }
 
     public boolean autoAim() {
