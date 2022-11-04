@@ -126,6 +126,11 @@ public class Constants {
         public static final double GEAR_RATIO = 1.0;
         public static final double TICKS_PER_ROTATION = 2048;
         public static final double MS_TO_MINUETS = 600;
+        /*
+        minuet (n.)
+        plural noun: minuets
+        a slow, stately ballroom dance for two in triple time, popular especially in the 18th century.
+        */
         public static final double SHOOTING_FLYWHEEL_RPM = 2900; // rpm
 
         public static final double NORTH_CUBIC_COEFF = 2;
