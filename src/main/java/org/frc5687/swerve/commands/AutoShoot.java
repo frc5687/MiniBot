@@ -3,15 +3,21 @@ package org.frc5687.swerve.commands;
 import org.frc5687.swerve.Constants;
 import org.frc5687.swerve.subsystems.Indexer;
 import org.frc5687.swerve.subsystems.Shooter;
+import org.frc5687.swerve.subsystems.DriveTrain;
+import org.frc5687.swerve.util.Limelight;
 
 public class AutoShoot extends OutliersCommand {
 
     private Indexer _indexer;
     private Shooter _shooter;
+    private Limelight _limelight;
+    private DriveTrain _drivetrain;
 
     private long _delay;
 
     private AutoShootingState _state;
+
+    private boolean _linearRegressing = true;
     
     public AutoShoot(Indexer indexer, Shooter shooter) {
         _indexer = indexer;
@@ -34,16 +40,16 @@ public class AutoShoot extends OutliersCommand {
         switch(_state) {
             case WAITING: {
                 _indexer.setIndexerSpeed(0.0);
-                _shooter.setNorthRPM(Constants.Shooter.SHOOTING_FLYWHEEL_RPM);
-                _shooter.setSouthRPM(Constants.Shooter.SHOOTING_FLYWHEEL_RPM);
+                _shooter.setNorthRPM(!_linearRegressing ? Constants.Shooter.SHOOTING_FLYWHEEL_RPM : _shooter.calculateIdealNorthRPM(_drivetrain.getYaw()));
+                _shooter.setSouthRPM(!_linearRegressing ? Constants.Shooter.SHOOTING_FLYWHEEL_RPM : _shooter.calculateIdealSouthRPM(_drivetrain.getYaw()));
                 if (_shooter.isFlywheelUptoSpeed() && _delay < System.currentTimeMillis()) {
                    _state = AutoShootingState.SHOOTING;
                 }
                 break;
             }
             case SHOOTING: {
-                _shooter.setNorthRPM(Constants.Shooter.SHOOTING_FLYWHEEL_RPM);
-                _shooter.setSouthRPM(Constants.Shooter.SHOOTING_FLYWHEEL_RPM);
+                _shooter.setNorthRPM(!_linearRegressing ? Constants.Shooter.SHOOTING_FLYWHEEL_RPM : _shooter.calculateIdealNorthRPM(_drivetrain.getYaw()));
+                _shooter.setSouthRPM(!_linearRegressing ? Constants.Shooter.SHOOTING_FLYWHEEL_RPM : _shooter.calculateIdealSouthRPM(_drivetrain.getYaw()));
                 _indexer.setIndexerSpeed(Constants.Indexer.INDEX_SPEED);
                 break;
             }

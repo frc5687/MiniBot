@@ -34,6 +34,7 @@ public class Shooter extends OutliersSubsystem{
 
     }
 
+
     public void setNorthSpeed(double demand){
         _north.set(ControlMode.PercentOutput, demand);
         // _isShooting = true;
@@ -45,6 +46,12 @@ public class Shooter extends OutliersSubsystem{
         _north.set(ControlMode.Velocity, ticks);
     }
 
+    public double calculateIdealNorthRPM(double dist){
+        return (Constants.Shooter.NORTH_CUBIC_COEFF * (dist * dist * dist)) + 
+        (Constants.Shooter.NORTH_SQUARE_COEFF * (dist * dist)) + 
+        (Constants.Shooter.NORTH_LINEAR_COEFF * dist) + Constants.Shooter.NORTH_OFFSET_COEFF;
+    }
+
     public void setSouthSpeed(double demand) {
         _south.set(ControlMode.PercentOutput, demand);
     }
@@ -53,6 +60,12 @@ public class Shooter extends OutliersSubsystem{
         double ticks = RPM * Constants.Shooter.TICKS_PER_ROTATION / Constants.Shooter.MS_TO_MINUETS;
         metric("SouthTicks Setpoint", ticks);
         _south.set(ControlMode.Velocity, ticks);
+    }
+
+    public double calculateIdealSouthRPM (double dist){
+        return (Constants.Shooter.SOUTH_CUBIC_COEFF * (dist * dist * dist)) + 
+        (Constants.Shooter.SOUTH_SQUARE_COEFF * (dist * dist)) + 
+        (Constants.Shooter.SOUTH_LINEAR_COEFF * dist) + Constants.Shooter.SOUTH_OFFSET_COEFF;
     }
 
     public double getNorthVelocityPer100ms(){

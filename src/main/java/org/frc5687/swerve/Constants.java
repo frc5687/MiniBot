@@ -127,6 +127,17 @@ public class Constants {
         public static final double TICKS_PER_ROTATION = 2048;
         public static final double MS_TO_MINUETS = 600;
         public static final double SHOOTING_FLYWHEEL_RPM = 2900; // rpm
+
+        public static final double NORTH_CUBIC_COEFF = 2;
+        public static final double NORTH_SQUARE_COEFF = 2;
+        public static final double NORTH_LINEAR_COEFF = 2;
+        public static final double NORTH_OFFSET_COEFF = 2;
+
+        public static final double SOUTH_CUBIC_COEFF = 2;
+        public static final double SOUTH_SQUARE_COEFF = 2;
+        public static final double SOUTH_LINEAR_COEFF = 2;
+        public static final double SOUTH_OFFSET_COEFF = 2;
+
         public static final double WHEEL_RADIUS = Units.inchesToMeters(2.0);
         public static final long DELAY = 200;
         public static final double RPM_TOLERANCE = 300;
