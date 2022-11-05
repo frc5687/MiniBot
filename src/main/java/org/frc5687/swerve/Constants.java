@@ -133,15 +133,15 @@ public class Constants {
         */
         public static final double SHOOTING_FLYWHEEL_RPM = 2900; // rpm
 
-        public static final double NORTH_CUBIC_COEFF = 2;
-        public static final double NORTH_SQUARE_COEFF = 2;
-        public static final double NORTH_LINEAR_COEFF = 2;
-        public static final double NORTH_OFFSET_COEFF = 2;
+        public static final double NORTH_CUBIC_COEFF = 0.006314395;
+        public static final double NORTH_SQUARE_COEFF = -0.105778826;
+        public static final double NORTH_LINEAR_COEFF = 0.592986356;
+        public static final double NORTH_OFFSET_COEFF = -0.793641243;
 
-        public static final double SOUTH_CUBIC_COEFF = 2;
-        public static final double SOUTH_SQUARE_COEFF = 2;
-        public static final double SOUTH_LINEAR_COEFF = 2;
-        public static final double SOUTH_OFFSET_COEFF = 2;
+        public static final double SOUTH_CUBIC_COEFF = -0.000068220;
+        public static final double SOUTH_SQUARE_COEFF = 0.001980322;
+        public static final double SOUTH_LINEAR_COEFF = -0.005533508;
+        public static final double SOUTH_OFFSET_COEFF = 0.064979245;
 
         public static final double WHEEL_RADIUS = Units.inchesToMeters(2.0);
         public static final long DELAY = 200;

@@ -47,9 +47,9 @@ public class Shooter extends OutliersSubsystem{
     }
 
     public double calculateIdealNorthRPM(double dist){
-        return (Constants.Shooter.NORTH_CUBIC_COEFF * (dist * dist * dist)) + 
+        return (Math.abs(Constants.Shooter.NORTH_CUBIC_COEFF * (dist * dist * dist)) + 
         (Constants.Shooter.NORTH_SQUARE_COEFF * (dist * dist)) + 
-        (Constants.Shooter.NORTH_LINEAR_COEFF * dist) + Constants.Shooter.NORTH_OFFSET_COEFF;
+        (Constants.Shooter.NORTH_LINEAR_COEFF * dist) + Constants.Shooter.NORTH_OFFSET_COEFF);
     }
 
     public void setSouthSpeed(double demand) {
@@ -63,9 +63,9 @@ public class Shooter extends OutliersSubsystem{
     }
 
     public double calculateIdealSouthRPM (double dist){
-        return (Constants.Shooter.SOUTH_CUBIC_COEFF * (dist * dist * dist)) + 
+        return (Math.abs(Constants.Shooter.SOUTH_CUBIC_COEFF * (dist * dist * dist)) + 
         (Constants.Shooter.SOUTH_SQUARE_COEFF * (dist * dist)) + 
-        (Constants.Shooter.SOUTH_LINEAR_COEFF * dist) + Constants.Shooter.SOUTH_OFFSET_COEFF;
+        (Constants.Shooter.SOUTH_LINEAR_COEFF * dist) + Constants.Shooter.SOUTH_OFFSET_COEFF);
     }
 
     public double getNorthVelocityPer100ms(){
