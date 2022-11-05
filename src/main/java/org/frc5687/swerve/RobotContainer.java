@@ -88,9 +88,10 @@ public class RobotContainer extends OutliersContainer {
     @Override
     public void updateDashboard() {
         _driveTrain.updateDashboard();
-//        _intake.updateDashboard();
+        _intake.updateDashboard();
         _indexer.updateDashboard();
         _shooter.updateDashboard();
+        _oi.updateDashboard();
     }
 
     public void controllerPeriodic() {

@@ -33,9 +33,12 @@ public class OI extends OutliersProxy {
     private double yIn = 0;
     private double xIn = 0;
 
+    private int driverPort = 0;
+    private int operatorPort = 0;
+
     public OI() {
-        _driverGamepad = new Gamepad(0);
-        _operatorGamepad = new Gamepad(1);
+        _driverGamepad = new Gamepad(driverPort);
+        _operatorGamepad = new Gamepad(operatorPort);
         _shootBTN = new JoystickButton(_operatorGamepad, Gamepad.Buttons.RIGHT_BUMPER.getNumber());
         _indexBTN = new JoystickButton(_driverGamepad, Gamepad.Buttons.Y.getNumber());
         _intakeBTN = new JoystickButton(_operatorGamepad, Gamepad.Buttons.A.getNumber());
@@ -88,5 +91,10 @@ public class OI extends OutliersProxy {
     public void updateDashboard() {
         metric("Raw x", xIn);
         metric("Raw y", yIn);
+        // Added in some metrics to help fix the loss of joystick control
+        metric("Driver port", _driverGamepad.getPort());
+        metric("Driver mapped port", driverPort);
+        metric("Operator port", _operatorGamepad.getPort());
+        metric("Operator mapped port", operatorPort);
     }
 }
