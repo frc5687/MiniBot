@@ -78,9 +78,9 @@ public class OI extends OutliersProxy {
     }
 
     public double getRotationX() {
-        double speed = getSpeedFromAxis(_driverGamepad, Gamepad.Axes.RIGHT_X.getNumber()) / 4; // added divide 4, driver training
+        double speed = getSpeedFromAxis(_driverGamepad, Gamepad.Axes.RIGHT_X.getNumber()); // added divide 4, driver training
         speed = applyDeadband(speed, 0.2);
-        return speed;
+        return speed / 4; // added divide 4, driver training
     }
 
     protected double getSpeedFromAxis(Joystick gamepad, int axisNumber) {
