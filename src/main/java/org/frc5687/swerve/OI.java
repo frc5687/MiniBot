@@ -34,7 +34,7 @@ public class OI extends OutliersProxy {
     private double xIn = 0;
 
     private int driverPort = 0;
-    private int operatorPort = 0;
+    private int operatorPort = 1;
 
     public OI() {
         _driverGamepad = new Gamepad(driverPort);
@@ -63,7 +63,7 @@ public class OI extends OutliersProxy {
         yIn = applyDeadband(yIn, DEADBAND);
 
         double yOut = yIn / (Math.sqrt(yIn * yIn + (xIn * xIn)) + Constants.EPSILON);
-        yOut = (yOut + (yIn * 2)) / 3.0;
+        yOut = (yOut + (yIn * 2)) / 12.0; // was 3, driver training
         return yOut;
     }
 
@@ -73,12 +73,12 @@ public class OI extends OutliersProxy {
         xIn = applyDeadband(xIn, DEADBAND);
 
         double xOut = xIn / (Math.sqrt(yIn * yIn + (xIn * xIn)) + Constants.EPSILON);
-        xOut = (xOut + (xIn * 2)) / 3.0;
+        xOut = (xOut + (xIn * 2)) / 12.0; // was 3, driver training
         return xOut;
     }
 
     public double getRotationX() {
-        double speed = getSpeedFromAxis(_driverGamepad, Gamepad.Axes.RIGHT_X.getNumber());
+        double speed = getSpeedFromAxis(_operatorGamepad, Gamepad.Axes.RIGHT_X.getNumber() / 4); // added divide 4, driver training
         speed = applyDeadband(speed, 0.2);
         return speed;
     }
