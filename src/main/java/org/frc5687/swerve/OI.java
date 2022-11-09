@@ -63,7 +63,7 @@ public class OI extends OutliersProxy {
         yIn = applyDeadband(yIn, DEADBAND);
 
         double yOut = yIn / (Math.sqrt(yIn * yIn + (xIn * xIn)) + Constants.EPSILON);
-        yOut = (yOut + (yIn * 2)) / 12.0; // was 3, driver training
+        yOut = (yOut + (yIn * 2)) / 9; // was 3, driver training
         return yOut;
     }
 
@@ -73,14 +73,14 @@ public class OI extends OutliersProxy {
         xIn = applyDeadband(xIn, DEADBAND);
 
         double xOut = xIn / (Math.sqrt(yIn * yIn + (xIn * xIn)) + Constants.EPSILON);
-        xOut = (xOut + (xIn * 2)) / 12.0; // was 3, driver training
+        xOut = (xOut + (xIn * 2)) / 9; // was 3, driver training
         return xOut;
     }
 
     public double getRotationX() {
         double speed = getSpeedFromAxis(_driverGamepad, Gamepad.Axes.RIGHT_X.getNumber()); // added divide 4, driver training
         speed = applyDeadband(speed, 0.2);
-        return speed / 4; // added divide 4, driver training
+        return speed / 3; // added divide, driver training
     }
 
     protected double getSpeedFromAxis(Joystick gamepad, int axisNumber) {
