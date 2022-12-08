@@ -1,6 +1,7 @@
 /* Team 5687 (C)2021 */
 package org.frc5687.swerve;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
@@ -27,7 +28,7 @@ public class RobotContainer extends OutliersContainer {
     private OI _oi;
     private AHRS _imu;
     private Limelight _limelight;
-    // private Pigeon2 _pigeon;
+    //private Pigeon2 _pigeon;
 
     private Shooter _shooter;
     private Indexer _indexer;
@@ -45,8 +46,8 @@ public class RobotContainer extends OutliersContainer {
         _oi = new OI();
         _imu = new AHRS(SPI.Port.kMXP, (byte) 200);
         _limelight = new Limelight("limelight");
-        // _pigeon = new Pigeon2(RobotMap.CAN.PIGEON.PIGEON, "rio");
-        // _pigeon.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_6_SensorFusion, 10, 10);
+       // _pigeon = new Pigeon2(RobotMap.CAN.PIGEON.PIGEON, "rio");
+       // _pigeon.setStatusFramePeriod(PigeonIMU_StatusFrame.CondStatus_6_SensorFusion, 10, 10);
 
         _shooter = new Shooter(this);
         _indexer = new Indexer(this);
@@ -90,6 +91,7 @@ public class RobotContainer extends OutliersContainer {
         _intake.updateDashboard();
         _indexer.updateDashboard();
         _shooter.updateDashboard();
+        _oi.updateDashboard();
     }
 
     public void controllerPeriodic() {

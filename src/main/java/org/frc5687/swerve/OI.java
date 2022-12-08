@@ -27,24 +27,30 @@ public class OI extends OutliersProxy {
     private JoystickButton _shootBTN;
     private JoystickButton _indexBTN;
     private JoystickButton _intakeBTN;
+    private JoystickButton _navxReset;
     private AxisButton _autoAim;
 
     private double yIn = 0;
     private double xIn = 0;
 
+    private int driverPort = 0;
+    private int operatorPort = 1;
+
     public OI() {
-        _driverGamepad = new Gamepad(0);
-        _operatorGamepad = new Gamepad(1);
+        _driverGamepad = new Gamepad(driverPort);
+        _operatorGamepad = new Gamepad(operatorPort);
         _shootBTN = new JoystickButton(_operatorGamepad, Gamepad.Buttons.RIGHT_BUMPER.getNumber());
         _indexBTN = new JoystickButton(_driverGamepad, Gamepad.Buttons.Y.getNumber());
         _intakeBTN = new JoystickButton(_operatorGamepad, Gamepad.Buttons.A.getNumber());
         _autoAim = new AxisButton(_driverGamepad, Gamepad.Axes.RIGHT_TRIGGER.getNumber(), 0.2);
+        _navxReset = new JoystickButton(_driverGamepad, Gamepad.Buttons.B.getNumber());
     }
 
     public void initializeButtons(DriveTrain driveTrain, Shooter shooter, Indexer indexer, Intake intake) {
         _shootBTN.whenHeld(new AutoShoot(indexer, shooter));
         // -0.8 meaning when trigger is -80% it counts as a button press.
         _intakeBTN.whenHeld(new AutoIntake(intake));
+        _navxReset.whenPressed(driveTrain::resetYaw);
     }
 
     public boolean autoAim() {
@@ -57,7 +63,7 @@ public class OI extends OutliersProxy {
         yIn = applyDeadband(yIn, DEADBAND);
 
         double yOut = yIn / (Math.sqrt(yIn * yIn + (xIn * xIn)) + Constants.EPSILON);
-        yOut = (yOut + (yIn * 2)) / 3.0;
+        yOut = (yOut + (yIn * 2)) / 3;
         return yOut;
     }
 
@@ -67,12 +73,12 @@ public class OI extends OutliersProxy {
         xIn = applyDeadband(xIn, DEADBAND);
 
         double xOut = xIn / (Math.sqrt(yIn * yIn + (xIn * xIn)) + Constants.EPSILON);
-        xOut = (xOut + (xIn * 2)) / 3.0;
+        xOut = (xOut + (xIn * 2)) / 3;
         return xOut;
     }
 
     public double getRotationX() {
-        double speed = getSpeedFromAxis(_driverGamepad, Gamepad.Axes.RIGHT_X.getNumber());
+        double speed = getSpeedFromAxis(_driverGamepad, Gamepad.Axes.RIGHT_X.getNumber()); // added divide 4, driver training
         speed = applyDeadband(speed, 0.2);
         return speed;
     }
@@ -85,5 +91,10 @@ public class OI extends OutliersProxy {
     public void updateDashboard() {
         metric("Raw x", xIn);
         metric("Raw y", yIn);
+        // Added in some metrics to help fix the loss of joystick control
+        metric("Driver port", _driverGamepad.getPort());
+        metric("Driver mapped port", driverPort);
+        metric("Operator port", _operatorGamepad.getPort());
+        metric("Operator mapped port", operatorPort);
     }
 }

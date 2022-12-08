@@ -29,11 +29,11 @@ public class Constants {
 
         public static final double DEADBAND = 0.1;
 
-        public static final double MAX_MPS = 3.5; // Max speed of robot (m/s) 0.5 for testing
+        public static final double MAX_MPS = 3.5 / 2; // Max speed of robot (m/s) 0.5 for testing
 
         public static final double MAX_ANG_VEL =
-                Math.PI * 2; // Max rotation rate of robot (rads/s) for testing
-        public static final double MAX_MPSS = 0.25; // Max acceleration of robot (m/s^2) for testing
+                Math.PI * 2 / 2; // Max rotation rate of robot (rads/s) for testing
+        public static final double MAX_MPSS = 0.25 / 2; // Max acceleration of robot (m/s^2) for testing
 
         public static final double ANGLE_kP = 3.5;
         public static final double ANGLE_kI = 0.0;
@@ -95,8 +95,8 @@ public class Constants {
 
     public static class Intake {
         public static final int CAN_TIMOUT = 200;
-        public static final double RETRACTED_ARM_ANGLE = Units.degreesToRadians(173);
-        public static final double EXTENDED_ARM_ANGLE = Units.degreesToRadians(130);
+        public static final double RETRACTED_ARM_ANGLE = Units.degreesToRadians(186);
+        public static final double EXTENDED_ARM_ANGLE = Units.degreesToRadians(170.5);
         public static final double INTAKEING_SPEED = 1.00;
         public static final double IDLE_INTAKEING_SPEED = 0.00; //-0.30;
         public static final double CLEANING_SPEED = 0.00;
